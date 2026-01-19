@@ -1,25 +1,45 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './database/user.entity';
-import { AccessLog } from './database/access-log.entity';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
+
+// Import Modules ของเรา
+import { RepositoriesModule } from './infrastructure/repositories/repositories.module';
+import { CategoryUsecasesProxyModule } from './infrastructure/usecases-proxy/category-usecases-proxy.module';
+import { CategoryController } from './infrastructure/controllers/category/category.controller';
+import { CategoryEntity } from './infrastructure/entities/category.entity';
 
 @Module({
-    imports: [
-        TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'localhost',       // ถูกต้อง (ตรงกับภาพที่ 5)
-            port: 5432,              // ถูกต้อง (ตรงกับภาพที่ 5)
-            username: 'postgres',    // ถูกต้อง (ตรงกับภาพที่ 5)
-            password: '21019954pn', // รหัสผ่านที่คุณตั้งตอนติดตั้งใหม่ (ตรวจสอบให้แน่ใจว่าถูกต้อง)
-            database: 'postgres',    // *** แก้ไขจุดนี้: เปลี่ยนจาก 'pos_db' เป็น 'postgres' เพื่อให้รันได้ทันที
-            entities: [User, AccessLog],
-            synchronize: true,
-        }),
-        TypeOrmModule.forFeature([User, AccessLog]),
-    ],
-    controllers: [AuthController],
-    providers: [AuthService],
+  imports: [
+    // 1. Config Environment (อ่านไฟล์ .env)
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    // 2. Database Connection (Postgres)
+   TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT) || 5432,
+      
+      // แก้ตรงนี้: เปลี่ยน 'postgres' เป็น 'user'
+      username: process.env.DB_USER || 'user', 
+      
+      // แก้ตรงนี้: ให้มั่นใจว่าตรงกับ Docker
+      password: process.env.DB_PASSWORD || 'password', 
+      database: process.env.DB_NAME || 'pos_db',
+      
+      entities: [CategoryEntity],
+      synchronize: true,
+      autoLoadEntities: true,
+      logging: true,
+    }),
+
+    // 3. Register Modules
+    RepositoriesModule,
+    CategoryUsecasesProxyModule.register(), // Load Dynamic Module
+  ],
+  controllers: [
+    // 4. Register Controllers
+    CategoryController,
+  ],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule {}

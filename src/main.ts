@@ -1,18 +1,23 @@
 import { NestFactory } from '@nestjs/core';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app.module';
-import { join } from 'path';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-    const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-        transport: Transport.GRPC,
-        options: {
-            package: 'auth',
-            protoPath: join(__dirname, '../src/proto/auth.proto'),
-            url: 'localhost:50051', // Port ของ Backend
-        },
-    });
-    await app.listen();
-    console.log('POS Backend (gRPC) is running on port 50051');
+  const app = await NestFactory.create(AppModule);
+
+  // ตั้งค่า Global Validation
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true, // แปลง Type อัตโนมัติ
+    whitelist: true, // ตัด Field ที่ไม่อยู่ใน DTO ทิ้ง
+  }));
+
+  // เปิด CORS (เผื่อต่อ Frontend)
+  app.enableCors();
+
+  // Prefix URL (เช่น /api/categories)
+  app.setGlobalPrefix('api');
+
+  await app.listen(3000);
+  console.log(`🚀 Server is running on: http://localhost:3000/api`);
 }
 bootstrap();
