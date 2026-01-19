@@ -36,4 +36,4 @@ services:
       - postgres
 
 volumes:
-  postgres_data:
+  postgres_data_v2:
