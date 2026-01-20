@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package category; // ชื่อ Package
+
+service CategoryService {
+  rpc Create (CreateCategoryRequest) returns (CategoryResponse);
+  rpc FindOne (CategoryByIdRequest) returns (CategoryResponse);
+  rpc FindAll (Empty) returns (CategoryListResponse);
+  rpc Update (UpdateCategoryRequest) returns (Empty);
+  rpc Delete (CategoryByIdRequest) returns (Empty);
+}
+
+// Model หลัก (เหมือน CategoryModel)
+message CategoryResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string photo = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+}
+
+message CreateCategoryRequest {
+  string name = 1;
+  string description = 2;
+  string photo = 3;
+}
+
+message UpdateCategoryRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string photo = 4;
+}
+
+message CategoryByIdRequest {
+  int32 id = 1;
+}
+
+message CategoryListResponse {
+  repeated CategoryResponse items = 1;
+  int32 total = 2;
+}
+
+message Empty {}

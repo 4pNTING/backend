@@ -1,23 +1,37 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { join } from 'path';
 
 async function bootstrap() {
+  // 1. สร้าง App ปกติ (HTTP)
   const app = await NestFactory.create(AppModule);
 
-  // ตั้งค่า Global Validation
+  // 2. เชื่อมต่อ Microservice (gRPC) เพิ่มเข้าไป
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.GRPC,
+    options: {
+      package: 'category', // ต้องตรงกับใน .proto
+      protoPath: join(__dirname, '../src/proto/category.proto'), // Path ของไฟล์ .proto
+      url: 'localhost:5000', // รันที่ Port 5000
+    },
+  });
+
+  // ตั้งค่า HTTP เหมือนเดิม
   app.useGlobalPipes(new ValidationPipe({
-    transform: true, // แปลง Type อัตโนมัติ
-    whitelist: true, // ตัด Field ที่ไม่อยู่ใน DTO ทิ้ง
+    transform: true,
+    whitelist: true,
   }));
-
-  // เปิด CORS (เผื่อต่อ Frontend)
   app.enableCors();
-
-  // Prefix URL (เช่น /api/categories)
   app.setGlobalPrefix('api');
 
+  // 3. เริ่มต้น Microservices ทั้งหมด
+  await app.startAllMicroservices();
+
+  // 4. เริ่มต้น HTTP Server
   await app.listen(3000);
-  console.log(`🚀 Server is running on: http://localhost:3000/api`);
+  console.log(`🚀 HTTP Server is running on: http://localhost:3000/api`);
+  console.log(`🚀 gRPC Service is running on: localhost:5000`);
 }
 bootstrap();

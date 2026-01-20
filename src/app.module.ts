@@ -14,18 +14,18 @@ import { CategoryEntity } from './infrastructure/entities/category.entity';
     ConfigModule.forRoot({ isGlobal: true }),
 
     // 2. Database Connection (Postgres)
-   TypeOrmModule.forRoot({
+    TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT) || 5432,
-      
+      port: parseInt(process.env.DB_PORT) || 5433,
+
       // แก้ตรงนี้: เปลี่ยน 'postgres' เป็น 'user'
-      username: process.env.DB_USER || 'user', 
-      
+      username: process.env.DB_USER,
+
       // แก้ตรงนี้: ให้มั่นใจว่าตรงกับ Docker
-      password: process.env.DB_PASSWORD || 'password', 
-      database: process.env.DB_NAME || 'pos_db',
-      
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+
       entities: [CategoryEntity],
       synchronize: true,
       autoLoadEntities: true,
@@ -42,4 +42,4 @@ import { CategoryEntity } from './infrastructure/entities/category.entity';
   ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
