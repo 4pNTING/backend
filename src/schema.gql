@@ -1,0 +1,121 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  _id: Int
+  createdAt: DateTime
+  description: String
+  name: String!
+  photo: String
+  updatedAt: DateTime
+}
+
+input ConditionDto {
+  field: String
+  value: String
+}
+
+input CreateCategoryDto {
+  description: String
+  name: String!
+  photo: String
+}
+
+type CreateCategoryResponse {
+  category: Category
+}
+
+input DateFilterDto {
+  endDate: String
+  startDate: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteCategoryDto {
+  _id: Int!
+}
+
+type DeleteCategoryResponse {
+  category: Category
+}
+
+input InNumberDto {
+  field: String
+  value: [Float!]
+}
+
+input InStringDto {
+  field: String
+  value: [String!]
+}
+
+input LoadCategoryByIdDto {
+  _id: Int!
+}
+
+type LoadCategoryByIdResponse {
+  category: Category
+}
+
+input LoadCategoryDto {
+  condition: [ConditionDto!]
+  dateFilter: DateFilterDto
+  inNumber: [InNumberDto!]
+  inString: [InStringDto!]
+  joins: [String!]
+  paginate: PaginateDto
+  search: SearchDto
+  select: [String!]
+  sort: Int
+}
+
+type LoadCategoryResponse {
+  category: [Category!]!
+  count: Int!
+}
+
+type Mutation {
+  createCategory(input: CreateCategoryDto!): CreateCategoryResponse!
+  deleteCategory(input: DeleteCategoryDto!): DeleteCategoryResponse!
+  restoreCategory(input: RestoreCategoryDto!): RestoreCategoryResponse!
+  updateCategory(input: UpdateCategoryDto!): UpdateCategoryResponse!
+}
+
+input PaginateDto {
+  limit: Int
+  page: Int
+}
+
+type Query {
+  loadCategory(input: LoadCategoryDto): LoadCategoryResponse!
+  loadCategoryById(input: LoadCategoryByIdDto!): LoadCategoryByIdResponse
+}
+
+input RestoreCategoryDto {
+  _id: Int!
+}
+
+type RestoreCategoryResponse {
+  category: Category
+}
+
+input SearchDto {
+  q: String
+  searchField: [String!]
+}
+
+input UpdateCategoryDto {
+  _id: Int!
+  description: String
+  name: String
+  photo: String
+}
+
+type UpdateCategoryResponse {
+  category: Category
+}

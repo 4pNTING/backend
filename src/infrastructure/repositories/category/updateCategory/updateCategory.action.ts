@@ -3,7 +3,7 @@ import { CategoryEntity } from '@infrastructure/entities/category.entity';
 import { UpdateCategoryRequest } from '@domain/models/category.model';
 
 export class UpdateCategoryAction {
-  constructor(private readonly session: QueryRunner) {}
+  constructor(private readonly session: QueryRunner) { }
 
   // ✅ รับ params ตัวเดียว ถูกต้องแล้ว
   public async execute(params: UpdateCategoryRequest): Promise<void> {
@@ -12,6 +12,7 @@ export class UpdateCategoryAction {
         name: params.name,
         description: params.description,
         photo: params.photo,
+        isActive: params.isActive,
         updatedAt: new Date()
       });
     } catch (error) {

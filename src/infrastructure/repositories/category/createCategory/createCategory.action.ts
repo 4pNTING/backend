@@ -28,7 +28,8 @@ export class CreateCategoryAction extends CategoryModel {
       this.name = params.name;
       this.description = params.description;
       this.photo = params.photo;
-      
+      this.isActive = params.isActive ?? true;
+
       // Auto-generated fields for logic
       this.createdAt = new Date();
       this.updatedAt = new Date();

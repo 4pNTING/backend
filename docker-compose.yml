@@ -9,8 +9,8 @@ services:
       - "5435:5432"
     environment:
       POSTGRES_USER: user # ต้องตรงกับ app.module.ts
-      POSTGRES_PASSWORD: password # ต้องตรงกับ app.module.ts
-      POSTGRES_DB: pos_db # ชื่อ Database
+      POSTGRES_PASSWORD: 123456789 # ต้องตรงกับ app.module.ts
+      POSTGRES_DB: postgres # ชื่อ Database
     volumes:
       - postgres_data_v2:/var/lib/postgresql/data
     restart: always

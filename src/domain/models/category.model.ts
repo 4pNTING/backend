@@ -6,6 +6,7 @@ export class CategoryModel {
   photo?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  isActive?: boolean;
 }
 
 // ==============================
@@ -15,9 +16,10 @@ export class CreateCategoryRequest {
   name: string;
   description?: string;
   photo?: string;
+  isActive?: boolean;
 }
 
-export class CreateCategoryResponse extends CategoryModel {}
+export class CreateCategoryResponse extends CategoryModel { }
 
 // ==============================
 // UPDATE
@@ -27,6 +29,7 @@ export class UpdateCategoryRequest {
   name?: string;
   description?: string;
   photo?: string;
+  isActive?: boolean;
 }
 
 export class UpdateCategoryResponse {
@@ -65,4 +68,4 @@ export class LoadCategoryByIdRequest {
   id: number;
 }
 
-export class LoadCategoryByIdResponse extends CategoryModel {}
+export class LoadCategoryByIdResponse extends CategoryModel { }
