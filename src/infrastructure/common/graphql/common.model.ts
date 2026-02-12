@@ -1,4 +1,14 @@
-import { Field, Int, InputType } from '@nestjs/graphql';
+import { Field, Int, InputType, registerEnumType } from '@nestjs/graphql';
+
+export enum ActiveStatus {
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE',
+    ALL = 'ALL'
+}
+
+registerEnumType(ActiveStatus, {
+    name: 'ActiveStatus',
+});
 
 @InputType()
 export class DateFilterDto {

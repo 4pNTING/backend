@@ -13,7 +13,8 @@ import {
     CreateCategoryResponse,
     UpdateCategoryResponse,
     DeleteCategoryResponse,
-    RestoreCategoryResponse
+    RestoreCategoryResponse,
+    ActiveStatus
 } from './category.model';
 import { CategoryUsecasesProxyModule } from '../../usecases-proxy/category-usecases-proxy.module';
 import { CreateCategoryUseCase } from '../../../usecases/category/createCategory.usecase';
@@ -53,7 +54,43 @@ export class CategoryResolver {
     async loadCategory(
         @Args('input', { nullable: true }) input: LoadCategoryDto
     ) {
-        const result = await this.loadCategoryUseCase.execute(input as any);
+        // Map simple input directly to QueryProps
+        const query: any = {};
+
+        if (input) {
+            // 1. Pagination
+            if (input.page || input.limit) {
+                query.paginate = {
+                    page: input.page || 1,
+                    limit: input.limit || 10
+                };
+            }
+
+            // 2. Search (Keyword)
+            if (input.keyword) {
+                query.search = {
+                    q: input.keyword
+                };
+            }
+
+            // 3. Filter (isActive via Enum)
+            if (input.isActive) {
+                let isActiveValue: string | undefined;
+                if (input.isActive === ActiveStatus.ACTIVE) isActiveValue = 'true';
+                if (input.isActive === ActiveStatus.INACTIVE) isActiveValue = 'false';
+
+                if (isActiveValue) {
+                    query.condition = [{
+                        field: 'isActive',
+                        value: isActiveValue
+                    }];
+                }
+                // If ALL, do nothing (fetch all)
+            }
+        }
+
+        const result = await this.loadCategoryUseCase.execute(query);
+
         // Map result items: id -> _id
         const items = result.items.map(item => ({
             ...item,

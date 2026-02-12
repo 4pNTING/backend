@@ -2,19 +2,20 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryEntity } from '../entities/category.entity';
 import { DatabaseCategoryRepository } from './category/category.repository';
+import { ZoneEntity } from '../entities/zone.entity';
+import { DatabaseZoneRepository } from './zone/zone.repository';
 
 @Module({
   imports: [
-    // จดทะเบียน Entity กับ TypeORM
-    TypeOrmModule.forFeature([CategoryEntity]),
+    TypeOrmModule.forFeature([CategoryEntity, ZoneEntity]),
   ],
   providers: [
-    // จดทะเบียน Repository Implementation
     DatabaseCategoryRepository,
+    DatabaseZoneRepository,
   ],
   exports: [
-    // Export ออกไปให้ Module อื่น (เช่น Proxy) ใช้ได้
     DatabaseCategoryRepository,
+    DatabaseZoneRepository,
   ],
 })
-export class RepositoriesModule {}
+export class RepositoriesModule { }

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package zone;
+
+service ZoneService {
+  rpc Create (CreateZoneRequest) returns (ZoneResponse);
+  rpc FindOne (ZoneByIdRequest) returns (ZoneResponse);
+  rpc FindAll (Empty) returns (ZoneListResponse);
+  rpc Update (UpdateZoneRequest) returns (Empty);
+  rpc Delete (ZoneByIdRequest) returns (Empty);
+  rpc Restore (ZoneByIdRequest) returns (Empty);
+}
+
+message ZoneResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  bool isActive = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+}
+
+message CreateZoneRequest {
+  string name = 1;
+  string description = 2;
+  bool isActive = 3;
+}
+
+message UpdateZoneRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  bool isActive = 4;
+}
+
+message ZoneByIdRequest {
+  int32 id = 1;
+}
+
+message ZoneListResponse {
+  repeated ZoneResponse items = 1;
+  int32 total = 2;
+}
+
+message Empty {}

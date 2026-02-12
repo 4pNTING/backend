@@ -72,7 +72,8 @@ export class CreateCategoryAction extends CategoryModel {
         description: this.description,
         photo: this.photo,
         createdAt: this.createdAt,
-        updatedAt: this.updatedAt
+        updatedAt: this.updatedAt,
+        isActive: this.isActive
       };
     } catch (error) {
       console.error('ERROR buildResponse', error?.message);

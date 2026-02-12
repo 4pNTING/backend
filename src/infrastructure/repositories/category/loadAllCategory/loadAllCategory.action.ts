@@ -4,7 +4,7 @@ import { LoadAllCategoryResponse, CategoryModel } from '@domain/models/category.
 import { QueryProps } from '@domain/models/query.model';
 
 export class LoadAllCategoryAction {
-  constructor(private readonly session: QueryRunner) {}
+  constructor(private readonly session: QueryRunner) { }
 
   public async execute(query: QueryProps): Promise<LoadAllCategoryResponse> {
     try {
@@ -14,9 +14,19 @@ export class LoadAllCategoryAction {
       if (query.search?.q) {
         const keyword = `%${query.search.q}%`;
         qb.andWhere(
-          `(category.name LIKE :keyword OR category.description LIKE :keyword)`, 
+          `(category.name LIKE :keyword OR category.description LIKE :keyword)`,
           { keyword }
         );
+      }
+
+      // 1.5 Condition (isActive)
+      if (query.condition && query.condition.length > 0) {
+        for (const cond of query.condition) {
+          if (cond.field === 'isActive' && cond.value) {
+            const isActive = cond.value === 'true';
+            qb.andWhere('category.isActive = :isActive', { isActive });
+          }
+        }
       }
 
       // 2. Pagination
@@ -34,25 +44,11 @@ export class LoadAllCategoryAction {
       // Execute Query
       const [entities, total] = await qb.getManyAndCount();
 
-      // Map to Model
-      const items = this.transformEntities(entities);
-
-      return { items, total };
+      return { items: entities, total };
 
     } catch (error) {
       console.error('ERROR LoadAllCategoryAction', error?.message);
       throw error instanceof Error ? error : new Error(error?.message);
     }
-  }
-
-  private transformEntities(entities: CategoryEntity[]): CategoryModel[] {
-    return entities.map(entity => ({
-      id: entity.id,
-      name: entity.name,
-      description: entity.description,
-      photo: entity.photo,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt
-    }));
   }
 }

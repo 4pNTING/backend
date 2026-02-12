@@ -5,20 +5,17 @@ import {
     InNumberDto,
     InStringDto,
     PaginateDto,
-    SearchDto,
-    ActiveStatus
+    SearchDto
 } from '../../common/graphql/common.model';
-
-export { ActiveStatus };
 
 // ==============================
 // OBJECT TYPES (Output)
 // ==============================
 
 @ObjectType()
-export class Category {
+export class Zone {
     @Field(() => Int, { nullable: true })
-    _id: number; // ใช้ _id จริงๆ ตามที่ขอ
+    _id: number;
 
     @Field()
     name: string;
@@ -27,58 +24,52 @@ export class Category {
     description?: string;
 
     @Field({ nullable: true })
-    photo?: string;
+    isActive?: boolean;
 
     @Field({ nullable: true })
-    createdAt?: Date; // ควรใช้ Date scalar ถ้าตั้งค่าไว้
+    createdAt?: Date;
 
     @Field({ nullable: true })
     updatedAt?: Date;
-
-    @Field({ nullable: true })
-    isActive?: boolean;
-    // เพิ่ม isActive หรือ deletedAt ถ้ามี soft delete
-    // @Field({ nullable: true })
-    // isActive?: boolean;
 }
 
 @ObjectType()
-export class LoadCategoryResponse {
+export class LoadZoneResponse {
     @Field(() => Int)
     count: number;
 
-    @Field(() => [Category])
-    category: Category[];
+    @Field(() => [Zone])
+    zone: Zone[];
 }
 
 @ObjectType()
-export class LoadCategoryByIdResponse {
-    @Field(() => Category, { nullable: true })
-    category: Category;
+export class LoadZoneByIdResponse {
+    @Field(() => Zone, { nullable: true })
+    zone: Zone;
 }
 
 @ObjectType()
-export class CreateCategoryResponse {
-    @Field(() => Category, { nullable: true })
-    category: Category;
+export class CreateZoneResponse {
+    @Field(() => Zone, { nullable: true })
+    zone: Zone;
 }
 
 @ObjectType()
-export class UpdateCategoryResponse {
-    @Field(() => Category, { nullable: true })
-    category: Category;
+export class UpdateZoneResponse {
+    @Field(() => Zone, { nullable: true })
+    zone: Zone;
 }
 
 @ObjectType()
-export class DeleteCategoryResponse {
-    @Field(() => Category, { nullable: true })
-    category: Category;
+export class DeleteZoneResponse {
+    @Field(() => Zone, { nullable: true })
+    zone: Zone;
 }
 
 @ObjectType()
-export class RestoreCategoryResponse {
-    @Field(() => Category, { nullable: true })
-    category: Category;
+export class RestoreZoneResponse {
+    @Field(() => Zone, { nullable: true })
+    zone: Zone;
 }
 
 
@@ -87,7 +78,7 @@ export class RestoreCategoryResponse {
 // ==============================
 
 @InputType()
-export class CreateCategoryDto {
+export class CreateZoneDto {
     @Field()
     name: string;
 
@@ -95,14 +86,11 @@ export class CreateCategoryDto {
     description?: string;
 
     @Field({ nullable: true })
-    photo?: string;
-
-    @Field({ nullable: true })
     isActive?: boolean;
 }
 
 @InputType()
-export class UpdateCategoryDto {
+export class UpdateZoneDto {
     @Field(() => Int)
     _id: number;
 
@@ -113,42 +101,39 @@ export class UpdateCategoryDto {
     description?: string;
 
     @Field({ nullable: true })
-    photo?: string;
-
-    @Field({ nullable: true })
     isActive?: boolean;
 }
 
 @InputType()
-export class LoadCategoryByIdDto {
+export class LoadZoneByIdDto {
     @Field(() => Int)
     _id: number;
 }
 
 
 @InputType()
-export class DeleteCategoryDto {
+export class DeleteZoneDto {
     @Field(() => Int)
     _id: number;
 }
 
 @InputType()
-export class RestoreCategoryDto {
+export class RestoreZoneDto {
     @Field(() => Int)
     _id: number;
 }
 
 @InputType()
 @InputType()
-export class LoadCategoryDto {
+export class LoadZoneDto {
     @Field(() => Int, { nullable: true })
     page?: number;
 
     @Field(() => Int, { nullable: true })
     limit?: number;
 
-    @Field(() => ActiveStatus, { nullable: true })
-    isActive?: ActiveStatus;
+    @Field({ nullable: true })
+    isActive?: string;
 
     @Field({ nullable: true })
     keyword?: string;

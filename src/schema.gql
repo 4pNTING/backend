@@ -6,6 +6,7 @@ type Category {
   _id: Int
   createdAt: DateTime
   description: String
+  isActive: Boolean
   name: String!
   photo: String
   updatedAt: DateTime
@@ -18,12 +19,23 @@ input ConditionDto {
 
 input CreateCategoryDto {
   description: String
+  isActive: Boolean
   name: String!
   photo: String
 }
 
 type CreateCategoryResponse {
   category: Category
+}
+
+input CreateZoneDto {
+  description: String
+  isActive: Boolean
+  name: String!
+}
+
+type CreateZoneResponse {
+  zone: Zone
 }
 
 input DateFilterDto {
@@ -42,6 +54,14 @@ input DeleteCategoryDto {
 
 type DeleteCategoryResponse {
   category: Category
+}
+
+input DeleteZoneDto {
+  _id: Int!
+}
+
+type DeleteZoneResponse {
+  zone: Zone
 }
 
 input InNumberDto {
@@ -79,11 +99,40 @@ type LoadCategoryResponse {
   count: Int!
 }
 
+input LoadZoneByIdDto {
+  _id: Int!
+}
+
+type LoadZoneByIdResponse {
+  zone: Zone
+}
+
+input LoadZoneDto {
+  condition: [ConditionDto!]
+  dateFilter: DateFilterDto
+  inNumber: [InNumberDto!]
+  inString: [InStringDto!]
+  joins: [String!]
+  paginate: PaginateDto
+  search: SearchDto
+  select: [String!]
+  sort: Int
+}
+
+type LoadZoneResponse {
+  count: Int!
+  zone: [Zone!]!
+}
+
 type Mutation {
   createCategory(input: CreateCategoryDto!): CreateCategoryResponse!
+  createZone(input: CreateZoneDto!): CreateZoneResponse!
   deleteCategory(input: DeleteCategoryDto!): DeleteCategoryResponse!
+  deleteZone(input: DeleteZoneDto!): DeleteZoneResponse!
   restoreCategory(input: RestoreCategoryDto!): RestoreCategoryResponse!
+  restoreZone(input: RestoreZoneDto!): RestoreZoneResponse!
   updateCategory(input: UpdateCategoryDto!): UpdateCategoryResponse!
+  updateZone(input: UpdateZoneDto!): UpdateZoneResponse!
 }
 
 input PaginateDto {
@@ -94,6 +143,8 @@ input PaginateDto {
 type Query {
   loadCategory(input: LoadCategoryDto): LoadCategoryResponse!
   loadCategoryById(input: LoadCategoryByIdDto!): LoadCategoryByIdResponse
+  loadZone(input: LoadZoneDto): LoadZoneResponse!
+  loadZoneById(input: LoadZoneByIdDto!): LoadZoneByIdResponse!
 }
 
 input RestoreCategoryDto {
@@ -104,6 +155,14 @@ type RestoreCategoryResponse {
   category: Category
 }
 
+input RestoreZoneDto {
+  _id: Int!
+}
+
+type RestoreZoneResponse {
+  zone: Zone
+}
+
 input SearchDto {
   q: String
   searchField: [String!]
@@ -112,10 +171,31 @@ input SearchDto {
 input UpdateCategoryDto {
   _id: Int!
   description: String
+  isActive: Boolean
   name: String
   photo: String
 }
 
 type UpdateCategoryResponse {
   category: Category
+}
+
+input UpdateZoneDto {
+  _id: Int!
+  description: String
+  isActive: Boolean
+  name: String
+}
+
+type UpdateZoneResponse {
+  zone: Zone
+}
+
+type Zone {
+  _id: Int
+  createdAt: DateTime
+  description: String
+  isActive: Boolean
+  name: String!
+  updatedAt: DateTime
 }
