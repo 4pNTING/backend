@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaymentMethod = exports.OrderStatus = exports.TableStatus = exports.InventoryMovementType = exports.ActiveStatus = exports.Role = void 0;
+exports.AttachmentStatus = exports.PaymentMethod = exports.OrderStatus = exports.TableStatus = exports.InventoryMovementType = exports.ActiveStatus = exports.Role = void 0;
 const graphql_1 = require("@nestjs/graphql");
 var Role;
 (function (Role) {
@@ -64,5 +64,16 @@ var PaymentMethod;
 (0, graphql_1.registerEnumType)(PaymentMethod, {
     name: 'PaymentMethod',
     description: 'Payment method used for an order',
+});
+var AttachmentStatus;
+(function (AttachmentStatus) {
+    AttachmentStatus["pending"] = "pending";
+    AttachmentStatus["processing"] = "processing";
+    AttachmentStatus["completed"] = "completed";
+    AttachmentStatus["failed"] = "failed";
+})(AttachmentStatus || (exports.AttachmentStatus = AttachmentStatus = {}));
+(0, graphql_1.registerEnumType)(AttachmentStatus, {
+    name: 'AttachmentStatus',
+    description: 'Status of file attachment processing',
 });
 //# sourceMappingURL=enum.js.map

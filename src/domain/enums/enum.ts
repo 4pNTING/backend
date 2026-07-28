@@ -70,3 +70,17 @@ registerEnumType(PaymentMethod, {
     name: 'PaymentMethod',
     description: 'Payment method used for an order',
 });
+
+// ─── Attachment Status ────────────────────────────────────
+export enum AttachmentStatus {
+    pending    = 'pending',     // อยู่ในคิวประมวลผล
+    processing = 'processing',  // กำลังประมวลผล
+    completed  = 'completed',   // ประมวลผลเสร็จสมบูรณ์
+    failed     = 'failed',      // ประมวลผลล้มเหลว
+}
+
+registerEnumType(AttachmentStatus, {
+    name: 'AttachmentStatus',
+    description: 'Status of file attachment processing',
+});
+

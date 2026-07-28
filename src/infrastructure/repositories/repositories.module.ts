@@ -29,6 +29,10 @@ import { CustomerEntity } from '../entities/customer.entity';
 import { ContactEntity } from '../entities/contact.entity';
 import { DatabaseCustomerRepository } from './customer/customer.repository';
 
+// Attachment Entity & Repository
+import { AttachmentEntity } from '../entities/attachment.entity';
+import { DatabaseAttachmentRepository } from './attachment/attachment.repository';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([
@@ -47,6 +51,8 @@ import { DatabaseCustomerRepository } from './customer/customer.repository';
       // Customer
       CustomerEntity,
       ContactEntity,
+      // Attachment
+      AttachmentEntity,
     ]),
   ],
   providers: [
@@ -63,6 +69,8 @@ import { DatabaseCustomerRepository } from './customer/customer.repository';
     DatabasePaymentRepository,
     // Customer
     DatabaseCustomerRepository,
+    // Attachment
+    DatabaseAttachmentRepository,
   ],
   exports: [
     // Existing
@@ -78,6 +86,8 @@ import { DatabaseCustomerRepository } from './customer/customer.repository';
     DatabasePaymentRepository,
     // Customer
     DatabaseCustomerRepository,
+    // Attachment
+    DatabaseAttachmentRepository,
   ],
 })
 export class RepositoriesModule { }

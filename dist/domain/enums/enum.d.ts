@@ -35,3 +35,9 @@ export declare enum PaymentMethod {
     qr = "qr",
     wallet = "wallet"
 }
+export declare enum AttachmentStatus {
+    pending = "pending",
+    processing = "processing",
+    completed = "completed",
+    failed = "failed"
+}

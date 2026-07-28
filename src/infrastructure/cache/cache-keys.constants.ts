@@ -87,4 +87,13 @@ export const CacheKeys = {
   CUSTOMER_BY_ID: (id: string) => `customer:id:${id}`,
   CUSTOMER_PATTERN: 'customer:*',
   CUSTOMER_LIST_PATTERN: 'customer:list:*',
+
+  // ─── Attachment ──────────────────────────────────────
+  ATTACHMENT_LIST: 'attachment:list',
+  ATTACHMENT_LIST_QUERY: (query: any) => `attachment:list:${queryToCacheKey(query)}`,
+  ATTACHMENT_BY_ID: (id: string) => `attachment:id:${id}`,
+  ATTACHMENT_BY_OWNER: (ownerId: string, ownerType?: string) => `attachment:owner:${ownerId}:${ownerType ?? 'all'}`,
+  ATTACHMENT_PATTERN: 'attachment:*',
+  ATTACHMENT_LIST_PATTERN: 'attachment:list:*',
 } as const;
+

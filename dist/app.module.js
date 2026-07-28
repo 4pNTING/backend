@@ -25,6 +25,7 @@ const menu_option_usecases_proxy_module_1 = require("./infrastructure/usecases-p
 const order_usecases_proxy_module_1 = require("./infrastructure/usecases-proxy/order-usecases-proxy.module");
 const payment_usecases_proxy_module_1 = require("./infrastructure/usecases-proxy/payment-usecases-proxy.module");
 const customer_usecases_proxy_module_1 = require("./infrastructure/usecases-proxy/customer-usecases-proxy.module");
+const attachment_usecases_proxy_module_1 = require("./infrastructure/usecases-proxy/attachment-usecases-proxy.module");
 const category_controller_1 = require("./infrastructure/controllers/category/category.controller");
 const zone_controller_1 = require("./infrastructure/controllers/zone/zone.controller");
 const auth_controller_1 = require("./infrastructure/controllers/auth/auth.controller");
@@ -41,6 +42,7 @@ const order_item_entity_1 = require("./infrastructure/entities/order-item.entity
 const payment_entity_1 = require("./infrastructure/entities/payment.entity");
 const customer_entity_1 = require("./infrastructure/entities/customer.entity");
 const contact_entity_1 = require("./infrastructure/entities/contact.entity");
+const attachment_entity_1 = require("./infrastructure/entities/attachment.entity");
 const category_resolver_1 = require("./infrastructure/resolvers/category/category.resolver");
 const zone_resolver_1 = require("./infrastructure/resolvers/zone/zone.resolver");
 const auth_resolver_1 = require("./infrastructure/resolvers/auth/auth.resolver");
@@ -51,6 +53,7 @@ const menu_option_resolver_1 = require("./infrastructure/resolvers/menu-option/m
 const order_resolver_1 = require("./infrastructure/resolvers/order/order.resolver");
 const payment_resolver_1 = require("./infrastructure/resolvers/payment/payment.resolver");
 const customer_resolver_1 = require("./infrastructure/resolvers/customer/customer.resolver");
+const attachment_resolver_1 = require("./infrastructure/resolvers/attachment/attachment.resolver");
 const jwt_strategy_1 = require("./infrastructure/common/jwt.strategy");
 const redis_module_1 = require("./infrastructure/cache/redis.module");
 let AppModule = class AppModule {
@@ -97,6 +100,7 @@ exports.AppModule = AppModule = __decorate([
                         payment_entity_1.PaymentEntity,
                         customer_entity_1.CustomerEntity,
                         contact_entity_1.ContactEntity,
+                        attachment_entity_1.AttachmentEntity,
                     ],
                     synchronize: true,
                     autoLoadEntities: true,
@@ -114,6 +118,7 @@ exports.AppModule = AppModule = __decorate([
             order_usecases_proxy_module_1.OrderUsecasesProxyModule.register(),
             payment_usecases_proxy_module_1.PaymentUsecasesProxyModule.register(),
             customer_usecases_proxy_module_1.CustomerUsecasesProxyModule.register(),
+            attachment_usecases_proxy_module_1.AttachmentUsecasesProxyModule.register(),
         ],
         controllers: [
             category_controller_1.CategoryController,
@@ -134,6 +139,7 @@ exports.AppModule = AppModule = __decorate([
             order_resolver_1.OrderResolver,
             payment_resolver_1.PaymentResolver,
             customer_resolver_1.CustomerResolver,
+            attachment_resolver_1.AttachmentResolver,
         ],
     })
 ], AppModule);

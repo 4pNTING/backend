@@ -62,5 +62,11 @@ exports.CacheKeys = {
     CUSTOMER_BY_ID: (id) => `customer:id:${id}`,
     CUSTOMER_PATTERN: 'customer:*',
     CUSTOMER_LIST_PATTERN: 'customer:list:*',
+    ATTACHMENT_LIST: 'attachment:list',
+    ATTACHMENT_LIST_QUERY: (query) => `attachment:list:${queryToCacheKey(query)}`,
+    ATTACHMENT_BY_ID: (id) => `attachment:id:${id}`,
+    ATTACHMENT_BY_OWNER: (ownerId, ownerType) => `attachment:owner:${ownerId}:${ownerType ?? 'all'}`,
+    ATTACHMENT_PATTERN: 'attachment:*',
+    ATTACHMENT_LIST_PATTERN: 'attachment:list:*',
 };
 //# sourceMappingURL=cache-keys.constants.js.map

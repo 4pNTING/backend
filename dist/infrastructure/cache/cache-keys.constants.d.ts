@@ -43,4 +43,10 @@ export declare const CacheKeys: {
     readonly CUSTOMER_BY_ID: (id: string) => string;
     readonly CUSTOMER_PATTERN: "customer:*";
     readonly CUSTOMER_LIST_PATTERN: "customer:list:*";
+    readonly ATTACHMENT_LIST: "attachment:list";
+    readonly ATTACHMENT_LIST_QUERY: (query: any) => string;
+    readonly ATTACHMENT_BY_ID: (id: string) => string;
+    readonly ATTACHMENT_BY_OWNER: (ownerId: string, ownerType?: string) => string;
+    readonly ATTACHMENT_PATTERN: "attachment:*";
+    readonly ATTACHMENT_LIST_PATTERN: "attachment:list:*";
 };
