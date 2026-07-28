@@ -179,9 +179,9 @@ export class DatabaseCategoryRepository implements ICategoryRepository {
     if (!entity) return null;
 
     return {
+      _id: entity._id,
       uniqueId: entity.uniqueId,
       uid: entity.uid,
-      _id: entity._id,
       name: entity.name,
       description: entity.description,
       photo: entity.photo,

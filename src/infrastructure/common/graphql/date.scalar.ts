@@ -5,8 +5,8 @@ import { Kind, ValueNode } from 'graphql';
  * Proper NestJS code-first DateTime scalar.
  * Handles Date objects from TypeORM entities and string timestamps from Redis cache.
  */
-@Scalar('DateTime', () => String)
-export class DateScalar implements CustomScalar<string, string> {
+@Scalar('DateTime', () => Date)
+export class DateScalar implements CustomScalar<unknown, string> {
   description = 'DateTime scalar — returns ISO 8601 UTC string';
 
   // client → server: parse incoming value

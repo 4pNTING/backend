@@ -277,6 +277,10 @@ export class UpdateCustomerDto {
     @Field(() => CustomerContactInput, { nullable: true })
     @IsOptional()
     contact?: CustomerContactInput;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    deleteContact?: boolean;
 }
 
 @InputType()

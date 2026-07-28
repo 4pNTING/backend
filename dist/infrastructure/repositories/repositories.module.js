@@ -28,6 +28,9 @@ const order_item_entity_1 = require("../entities/order-item.entity");
 const order_repository_1 = require("./order/order.repository");
 const payment_entity_1 = require("../entities/payment.entity");
 const payment_repository_1 = require("./payment/payment.repository");
+const customer_entity_1 = require("../entities/customer.entity");
+const contact_entity_1 = require("../entities/contact.entity");
+const customer_repository_1 = require("./customer/customer.repository");
 let RepositoriesModule = class RepositoriesModule {
 };
 exports.RepositoriesModule = RepositoriesModule;
@@ -45,6 +48,8 @@ exports.RepositoriesModule = RepositoriesModule = __decorate([
                 order_entity_1.OrderEntity,
                 order_item_entity_1.OrderItemEntity,
                 payment_entity_1.PaymentEntity,
+                customer_entity_1.CustomerEntity,
+                contact_entity_1.ContactEntity,
             ]),
         ],
         providers: [
@@ -57,6 +62,7 @@ exports.RepositoriesModule = RepositoriesModule = __decorate([
             menu_option_repository_1.DatabaseMenuOptionRepository,
             order_repository_1.DatabaseOrderRepository,
             payment_repository_1.DatabasePaymentRepository,
+            customer_repository_1.DatabaseCustomerRepository,
         ],
         exports: [
             category_repository_1.DatabaseCategoryRepository,
@@ -68,6 +74,7 @@ exports.RepositoriesModule = RepositoriesModule = __decorate([
             menu_option_repository_1.DatabaseMenuOptionRepository,
             order_repository_1.DatabaseOrderRepository,
             payment_repository_1.DatabasePaymentRepository,
+            customer_repository_1.DatabaseCustomerRepository,
         ],
     })
 ], RepositoriesModule);

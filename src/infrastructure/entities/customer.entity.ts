@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
-import { CustomerModel, CustomerContactModel } from '../../domain/models/customer.model';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { ContactEntity } from './contact.entity';
 import { ActiveStatus } from '../../domain/enums/enum';
 
 @Entity('customers')
-export class CustomerEntity implements CustomerModel {
+export class CustomerEntity {
     @PrimaryGeneratedColumn('uuid')
     _id: string;
 
@@ -62,8 +62,9 @@ export class CustomerEntity implements CustomerModel {
     @Column({ nullable: true })
     fileUrl: string;
 
-    @Column({ type: 'json', nullable: true })
-    contact: CustomerContactModel;
+    @OneToOne(() => ContactEntity, { nullable: true })
+    @JoinColumn()
+    contact: ContactEntity;
 
     @DeleteDateColumn()
     deletedAt: Date;

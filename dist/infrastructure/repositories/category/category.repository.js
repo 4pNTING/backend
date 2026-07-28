@@ -151,6 +151,8 @@ let DatabaseCategoryRepository = DatabaseCategoryRepository_1 = class DatabaseCa
             return null;
         return {
             _id: entity._id,
+            uniqueId: entity.uniqueId,
+            uid: entity.uid,
             name: entity.name,
             description: entity.description,
             photo: entity.photo,

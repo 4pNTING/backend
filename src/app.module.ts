@@ -3,10 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { GraphQLISODateTime } from '@nestjs/graphql';
+import { DateScalar } from './infrastructure/common/graphql/date.scalar';
 import { join } from 'path';
 
-// Import Modules ของเรา
+// Modules
 import { RepositoriesModule } from './infrastructure/repositories/repositories.module';
 import { CategoryUsecasesProxyModule } from './infrastructure/usecases-proxy/category-usecases-proxy.module';
 import { ZoneUsecasesProxyModule } from './infrastructure/usecases-proxy/zone-usecases-proxy.module';
@@ -37,6 +37,7 @@ import { OrderEntity } from './infrastructure/entities/order.entity';
 import { OrderItemEntity } from './infrastructure/entities/order-item.entity';
 import { PaymentEntity } from './infrastructure/entities/payment.entity';
 import { CustomerEntity } from './infrastructure/entities/customer.entity';
+import { ContactEntity } from './infrastructure/entities/contact.entity';
 
 // Resolvers (existing)
 import { CategoryResolver } from './infrastructure/resolvers/category/category.resolver';
@@ -66,9 +67,6 @@ import { RedisModule } from './infrastructure/cache/redis.module';
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-            resolvers: {
-                DateTime: GraphQLISODateTime,
-            },
             context: ({ req }) => ({ req }),
             sortSchema: false,
             playground: true,
@@ -105,6 +103,7 @@ import { RedisModule } from './infrastructure/cache/redis.module';
                     OrderItemEntity,
                     PaymentEntity,
                     CustomerEntity,
+                    ContactEntity,
                 ],
                 synchronize: true,
                 autoLoadEntities: true,
@@ -134,6 +133,7 @@ import { RedisModule } from './infrastructure/cache/redis.module';
         CurrencyController,
     ],
     providers: [
+        DateScalar,
         // Existing Resolvers
         CategoryResolver,
         ZoneResolver,

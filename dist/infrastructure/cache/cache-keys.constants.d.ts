@@ -38,4 +38,9 @@ export declare const CacheKeys: {
     readonly PAYMENT_BY_ORDER: (orderId: string) => string;
     readonly PAYMENT_BY_ID: (id: string) => string;
     readonly PAYMENT_PATTERN: "payment:*";
+    readonly CUSTOMER_LIST: "customer:list";
+    readonly CUSTOMER_LIST_QUERY: (query: any) => string;
+    readonly CUSTOMER_BY_ID: (id: string) => string;
+    readonly CUSTOMER_PATTERN: "customer:*";
+    readonly CUSTOMER_LIST_PATTERN: "customer:list:*";
 };

@@ -57,5 +57,10 @@ exports.CacheKeys = {
     PAYMENT_BY_ORDER: (orderId) => `payment:order:${orderId}`,
     PAYMENT_BY_ID: (id) => `payment:id:${id}`,
     PAYMENT_PATTERN: 'payment:*',
+    CUSTOMER_LIST: 'customer:list',
+    CUSTOMER_LIST_QUERY: (query) => `customer:list:${queryToCacheKey(query)}`,
+    CUSTOMER_BY_ID: (id) => `customer:id:${id}`,
+    CUSTOMER_PATTERN: 'customer:*',
+    CUSTOMER_LIST_PATTERN: 'customer:list:*',
 };
 //# sourceMappingURL=cache-keys.constants.js.map

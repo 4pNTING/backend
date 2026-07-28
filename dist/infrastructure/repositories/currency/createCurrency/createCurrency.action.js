@@ -56,6 +56,8 @@ class CreateCurrencyAction extends currency_model_1.CurrencyModel {
         try {
             return {
                 _id: this._id,
+                uniqueId: this.uniqueId,
+                uid: this.uid,
                 code: this.code,
                 name: this.name,
                 isActive: this.isActive,

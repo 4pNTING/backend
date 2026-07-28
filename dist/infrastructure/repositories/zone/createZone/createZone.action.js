@@ -55,6 +55,8 @@ class CreateZoneAction extends zone_model_1.ZoneModel {
         try {
             return {
                 _id: this._id,
+                uniqueId: this.uniqueId,
+                uid: this.uid,
                 name: this.name,
                 isActive: this.isActive,
                 createdAt: this.createdAt,

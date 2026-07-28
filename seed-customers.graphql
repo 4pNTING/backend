@@ -1,0 +1,223 @@
+# Seed 10 Customer records
+# Run each mutation in Apollo Sandbox (http://localhost:3000/api-gateway)
+# Copy one at a time, or run as a batch
+
+mutation Seed1 {
+  createCustomer(
+    input: {
+      firstName: "ສົມສະຫວາດ"
+      lastName: "ແກ້ວມະນີ"
+      phoneNumber: "02055551234"
+      gender: "male"
+      nationality: "Lao"
+      province: "ນະຄອນຫຼວງ"
+      district: "ສີສັດຕະນາກ"
+      village: "ວັດນາກ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed2 {
+  createCustomer(
+    input: {
+      firstName: "ບຸນທະວີ"
+      lastName: "ສຸວັນນະລາດ"
+      phoneNumber: "02077778888"
+      gender: "female"
+      nationality: "Lao"
+      province: "ຈຳປາສັກ"
+      district: "ປາກເຊ"
+      village: "ຫ້ວຍຍາງ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed3 {
+  createCustomer(
+    input: {
+      firstName: "ວິໄລພອນ"
+      lastName: "ອິນທະວົງ"
+      phoneNumber: "02099990001"
+      gender: "female"
+      nationality: "Lao"
+      province: "ສະຫວັນນະເຂດ"
+      district: "ໄກສອນ ພົມວິຫານ"
+      village: "ສະພານໄຊ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed4 {
+  createCustomer(
+    input: {
+      firstName: "ທອງສະຫວັນ"
+      lastName: "ພິມມະສອນ"
+      phoneNumber: "02011112222"
+      gender: "male"
+      nationality: "Lao"
+      province: "ຫຼວງພະບາງ"
+      district: "ຫຼວງພະບາງ"
+      village: "ຊຽງທອງ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed5 {
+  createCustomer(
+    input: {
+      firstName: "ຈັນທະມາດ"
+      lastName: "ພູມມີໄຊ"
+      phoneNumber: "02033334444"
+      gender: "female"
+      nationality: "Lao"
+      province: "ນະຄອນຫຼວງ"
+      district: "ຈັນທະບູລີ"
+      village: "ດົງປ່າແຫຼມ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed6 {
+  createCustomer(
+    input: {
+      firstName: "ສຸກສະຫວັນ"
+      lastName: "ລັດຕະນະວົງ"
+      phoneNumber: "02066667777"
+      gender: "male"
+      nationality: "Lao"
+      province: "ບໍລິຄຳໄຊ"
+      district: "ປາກຊັນ"
+      village: "ວັງເຜິກ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed7 {
+  createCustomer(
+    input: {
+      firstName: "ດາວຮຸ່ງ"
+      lastName: "ແສງສະຫວ່າງ"
+      phoneNumber: "02044445555"
+      gender: "female"
+      nationality: "Lao"
+      province: "ວຽງຈັນ"
+      district: "ວັງວຽງ"
+      village: "ນາແຄນ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed8 {
+  createCustomer(
+    input: {
+      firstName: "ຄຳພູ"
+      lastName: "ວົງສະຫວ່າງ"
+      phoneNumber: "02022223333"
+      gender: "male"
+      nationality: "Lao"
+      province: "ສາລະວັນ"
+      district: "ສາລະວັນ"
+      village: "ນາແກ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed9 {
+  createCustomer(
+    input: {
+      firstName: "ນ້ອຍ"
+      lastName: "ສີສົມບັດ"
+      phoneNumber: "02088889999"
+      gender: "female"
+      nationality: "Lao"
+      province: "ນະຄອນຫຼວງ"
+      district: "ໄຊເສດຖາ"
+      village: "ໂພນສະຫວ່າງ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}
+
+mutation Seed10 {
+  createCustomer(
+    input: {
+      firstName: "ສົມພອນ"
+      lastName: "ບຸນຍະລິດ"
+      phoneNumber: "02055559999"
+      gender: "male"
+      nationality: "Lao"
+      province: "ຊຽງຂວາງ"
+      district: "ແປກ"
+      village: "ພູກູດ"
+    }
+  ) {
+    customer {
+      _id
+      firstName
+      lastName
+      phoneNumber
+    }
+  }
+}

@@ -1,15 +1,8 @@
 import { ActiveStatus } from '../enums/enum';
+import { ContactModel } from './contact.model';
 
 // ─── Contact Sub-Model ─────────────────────────────────────
-export class CustomerContactModel {
-    _id?: string;
-    firstName?: string;
-    lastName?: string;
-    phoneNumber?: string;
-    province?: string;
-    district?: string;
-    village?: string;
-}
+export class CustomerContactModel extends ContactModel {}
 
 // ─── Base Model ───────────────────────────────────────────
 export class CustomerModel {
@@ -67,6 +60,7 @@ export class UpdateCustomerRequest {
     fileUrl?: string;
     isActive?: ActiveStatus;
     contact?: CustomerContactModel;
+    deleteContact?: boolean;
 }
 
 export class UpdateCustomerResponse {

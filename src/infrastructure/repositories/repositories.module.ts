@@ -26,6 +26,7 @@ import { DatabasePaymentRepository } from './payment/payment.repository';
 
 // Customer Entity & Repository
 import { CustomerEntity } from '../entities/customer.entity';
+import { ContactEntity } from '../entities/contact.entity';
 import { DatabaseCustomerRepository } from './customer/customer.repository';
 
 @Module({
@@ -45,6 +46,7 @@ import { DatabaseCustomerRepository } from './customer/customer.repository';
       PaymentEntity,
       // Customer
       CustomerEntity,
+      ContactEntity,
     ]),
   ],
   providers: [

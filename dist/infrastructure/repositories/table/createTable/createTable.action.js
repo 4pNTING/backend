@@ -54,6 +54,8 @@ class CreateTableAction extends table_model_1.TableModel {
     buildResponse() {
         return {
             _id: this._id,
+            uniqueId: this.uniqueId,
+            uid: this.uid,
             number: this.number,
             zoneId: this.zoneId,
             capacity: this.capacity,
