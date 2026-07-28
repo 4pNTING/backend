@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { DateScalar } from './infrastructure/common/graphql/date.scalar';
 import { join } from 'path';
 
@@ -72,7 +73,8 @@ import { RedisModule } from './infrastructure/cache/redis.module';
             autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
             context: ({ req }) => ({ req }),
             sortSchema: false,
-            playground: true,
+            playground: false,
+            plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
             path: '/api-gateway',
             formatError: (error) => {
                 return {
