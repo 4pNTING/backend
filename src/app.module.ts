@@ -62,8 +62,11 @@ import { RedisModule } from './infrastructure/cache/redis.module';
 
 @Module({
     imports: [
-        // 1. Config Environment (อ่านไฟล์ .env)
-        ConfigModule.forRoot({ isGlobal: true }),
+        // 1. Config Environment (อ่านไฟล์ .env หรือ .env.linux)
+        ConfigModule.forRoot({
+            isGlobal: true,
+            envFilePath: process.env.ENV_FILE || (process.env.NODE_ENV ? [`.env.${process.env.NODE_ENV}`, '.env'] : '.env'),
+        }),
 
         // 2. Redis Cache (Global Module)
         RedisModule,

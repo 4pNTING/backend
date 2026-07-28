@@ -8,6 +8,8 @@
     "start": "node dist/main.js",
     "start:dev": "ts-node -r tsconfig-paths/register src/main.ts",
     "dev:start": "npm run start:dev",
+    "start:dev2": "ENV_FILE=.env.linux ts-node -r tsconfig-paths/register src/main.ts",
+    "dev2": "npm run start:dev2",
     "start:prod": "node dist/main.js"
   },
   "dependencies": {

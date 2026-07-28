@@ -12,6 +12,7 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
+const default_1 = require("@apollo/server/plugin/landingPage/default");
 const date_scalar_1 = require("./infrastructure/common/graphql/date.scalar");
 const path_1 = require("path");
 const repositories_module_1 = require("./infrastructure/repositories/repositories.module");
@@ -62,14 +63,18 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: process.env.ENV_FILE || (process.env.NODE_ENV ? [`.env.${process.env.NODE_ENV}`, '.env'] : '.env'),
+            }),
             redis_module_1.RedisModule,
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 autoSchemaFile: (0, path_1.join)(process.cwd(), 'src/schema.gql'),
                 context: ({ req }) => ({ req }),
                 sortSchema: false,
-                playground: true,
+                playground: false,
+                plugins: [(0, default_1.ApolloServerPluginLandingPageLocalDefault)({ embed: true })],
                 path: '/api-gateway',
                 formatError: (error) => {
                     return {
