@@ -22,7 +22,10 @@ async function seed() {
                 if (!trimmed || trimmed.startsWith('#')) return;
                 const [key, ...valueParts] = trimmed.split('=');
                 if (key && valueParts.length > 0) {
-                    process.env[key.trim()] = valueParts.join('=').trim();
+                    const k = key.trim();
+                    if (!process.env[k]) {
+                        process.env[k] = valueParts.join('=').trim();
+                    }
                 }
             });
             console.log('✅ Loaded .env configuration');
