@@ -88,4 +88,13 @@ export declare class LoadAttachmentDto {
     keyword?: string;
     sortField?: string;
     sortDirection?: string;
+    ownerId?: string;
+    ownerType?: string;
+}
+export declare class LoadAttachmentByOwnerDto {
+    ownerId: string;
+    ownerType?: string;
+}
+export declare class LoadAttachmentByOwnerResponse {
+    attachment: Attachment[];
 }

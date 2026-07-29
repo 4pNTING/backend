@@ -156,6 +156,18 @@ export class DatabaseAttachmentRepository implements IAttachmentRepository {
         });
       }
 
+      if ((query as any).ownerId) {
+        qb.andWhere('attachment.ownerId = :ownerId', {
+          ownerId: (query as any).ownerId,
+        });
+      }
+
+      if ((query as any).ownerType) {
+        qb.andWhere('attachment.ownerType = :ownerType', {
+          ownerType: (query as any).ownerType,
+        });
+      }
+
       const page = query.paginate?.page || 1;
       const limit = query.paginate?.limit || 10;
       qb.skip((page - 1) * limit).take(limit);

@@ -296,4 +296,34 @@ export class LoadAttachmentDto {
   @IsString()
   @IsOptional()
   sortDirection?: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  ownerId?: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  ownerType?: string;
 }
+
+@InputType()
+export class LoadAttachmentByOwnerDto {
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  ownerId: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  ownerType?: string;
+}
+
+@ObjectType()
+export class LoadAttachmentByOwnerResponse {
+  @Field(() => [Attachment])
+  attachment: Attachment[];
+}
+

@@ -78,6 +78,12 @@ export class AttachmentResolver {
       if (input.sortDirection) {
         query.sortDirection = input.sortDirection;
       }
+      if (input.ownerId) {
+        query.ownerId = input.ownerId;
+      }
+      if (input.ownerType) {
+        query.ownerType = input.ownerType;
+      }
     }
 
     const result = await this.loadAttachmentUseCase.execute(query);

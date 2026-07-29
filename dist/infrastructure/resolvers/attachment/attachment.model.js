@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoadAttachmentDto = exports.RestoreAttachmentDto = exports.DeleteAttachmentDto = exports.LoadAttachmentByIdDto = exports.UpdateAttachmentDto = exports.CreateAttachmentDto = exports.RestoreAttachmentResponse = exports.DeleteAttachmentResponse = exports.UpdateAttachmentResponse = exports.CreateAttachmentResponse = exports.LoadAttachmentByIdResponse = exports.LoadAttachmentResponse = exports.Attachment = exports.AttachmentStatus = exports.ActiveStatus = void 0;
+exports.LoadAttachmentByOwnerResponse = exports.LoadAttachmentByOwnerDto = exports.LoadAttachmentDto = exports.RestoreAttachmentDto = exports.DeleteAttachmentDto = exports.LoadAttachmentByIdDto = exports.UpdateAttachmentDto = exports.CreateAttachmentDto = exports.RestoreAttachmentResponse = exports.DeleteAttachmentResponse = exports.UpdateAttachmentResponse = exports.CreateAttachmentResponse = exports.LoadAttachmentByIdResponse = exports.LoadAttachmentResponse = exports.Attachment = exports.AttachmentStatus = exports.ActiveStatus = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
 const common_model_1 = require("../../common/graphql/common.model");
@@ -403,7 +403,47 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LoadAttachmentDto.prototype, "sortDirection", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], LoadAttachmentDto.prototype, "ownerId", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], LoadAttachmentDto.prototype, "ownerType", void 0);
 exports.LoadAttachmentDto = LoadAttachmentDto = __decorate([
     (0, graphql_1.InputType)()
 ], LoadAttachmentDto);
+let LoadAttachmentByOwnerDto = class LoadAttachmentByOwnerDto {
+};
+exports.LoadAttachmentByOwnerDto = LoadAttachmentByOwnerDto;
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], LoadAttachmentByOwnerDto.prototype, "ownerId", void 0);
+__decorate([
+    (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], LoadAttachmentByOwnerDto.prototype, "ownerType", void 0);
+exports.LoadAttachmentByOwnerDto = LoadAttachmentByOwnerDto = __decorate([
+    (0, graphql_1.InputType)()
+], LoadAttachmentByOwnerDto);
+let LoadAttachmentByOwnerResponse = class LoadAttachmentByOwnerResponse {
+};
+exports.LoadAttachmentByOwnerResponse = LoadAttachmentByOwnerResponse;
+__decorate([
+    (0, graphql_1.Field)(() => [Attachment]),
+    __metadata("design:type", Array)
+], LoadAttachmentByOwnerResponse.prototype, "attachment", void 0);
+exports.LoadAttachmentByOwnerResponse = LoadAttachmentByOwnerResponse = __decorate([
+    (0, graphql_1.ObjectType)()
+], LoadAttachmentByOwnerResponse);
 //# sourceMappingURL=attachment.model.js.map

@@ -148,6 +148,16 @@ let DatabaseAttachmentRepository = DatabaseAttachmentRepository_1 = class Databa
                     isActive: query.isActive,
                 });
             }
+            if (query.ownerId) {
+                qb.andWhere('attachment.ownerId = :ownerId', {
+                    ownerId: query.ownerId,
+                });
+            }
+            if (query.ownerType) {
+                qb.andWhere('attachment.ownerType = :ownerType', {
+                    ownerType: query.ownerType,
+                });
+            }
             const page = query.paginate?.page || 1;
             const limit = query.paginate?.limit || 10;
             qb.skip((page - 1) * limit).take(limit);
