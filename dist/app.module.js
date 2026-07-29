@@ -31,6 +31,7 @@ const category_controller_1 = require("./infrastructure/controllers/category/cat
 const zone_controller_1 = require("./infrastructure/controllers/zone/zone.controller");
 const auth_controller_1 = require("./infrastructure/controllers/auth/auth.controller");
 const currency_controller_1 = require("./infrastructure/controllers/currency/currency.controller");
+const upload_controller_1 = require("./infrastructure/controllers/upload/upload.controller");
 const category_entity_1 = require("./infrastructure/entities/category.entity");
 const zone_entity_1 = require("./infrastructure/entities/zone.entity");
 const user_entity_1 = require("./infrastructure/entities/user.entity");
@@ -130,6 +131,7 @@ exports.AppModule = AppModule = __decorate([
             zone_controller_1.ZoneController,
             auth_controller_1.AuthController,
             currency_controller_1.CurrencyController,
+            upload_controller_1.UploadController,
         ],
         providers: [
             date_scalar_1.DateScalar,

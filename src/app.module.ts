@@ -26,6 +26,7 @@ import { CategoryController } from './infrastructure/controllers/category/catego
 import { ZoneController } from './infrastructure/controllers/zone/zone.controller';
 import { AuthController } from './infrastructure/controllers/auth/auth.controller';
 import { CurrencyController } from './infrastructure/controllers/currency/currency.controller';
+import { UploadController } from './infrastructure/controllers/upload/upload.controller';
 
 // Entities
 import { CategoryEntity } from './infrastructure/entities/category.entity';
@@ -141,6 +142,7 @@ import { RedisModule } from './infrastructure/cache/redis.module';
         ZoneController,
         AuthController,
         CurrencyController,
+        UploadController,
     ],
     providers: [
         DateScalar,

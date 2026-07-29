@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import express from 'express';
 import { AllExceptionsFilter } from './infrastructure/common/filter/all-exceptions.filter';
 
 async function bootstrap() {
@@ -30,6 +31,7 @@ async function bootstrap() {
     whitelist: true,
   }));
   app.enableCors();
+  app.use('/uploads', express.static(join(process.cwd(), 'uploads')));
   app.setGlobalPrefix('api');
 
   // 3. เริ่มต้น Microservices ทั้งหมด
