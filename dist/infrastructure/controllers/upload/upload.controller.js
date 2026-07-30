@@ -47,6 +47,12 @@ let UploadController = class UploadController {
         }
         const MAX_FILE_SIZE = 5 * 1024 * 1024;
         if (file.size > MAX_FILE_SIZE) {
+            if (file.path && (0, fs_1.existsSync)(file.path)) {
+                try {
+                    (0, fs_1.unlinkSync)(file.path);
+                }
+                catch (e) { }
+            }
             throw new common_1.BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB');
         }
         const fileUrl = `/uploads/${file.filename}`;

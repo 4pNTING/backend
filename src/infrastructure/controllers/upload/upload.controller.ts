@@ -10,7 +10,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, unlinkSync } from 'fs';
 import { AttachmentUsecasesProxyModule } from '../../usecases-proxy/attachment-usecases-proxy.module';
 import { CreateAttachmentUseCase } from '../../../usecases/attachment/createAttachment.usecase';
 
@@ -57,6 +57,11 @@ export class UploadController {
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
     if (file.size > MAX_FILE_SIZE) {
+      if (file.path && existsSync(file.path)) {
+        try {
+          unlinkSync(file.path);
+        } catch (e) {}
+      }
       throw new BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB');
     }
 
