@@ -52,7 +52,7 @@ export class UploadController {
     @Body() body: { ownerId?: string; ownerType?: string; originalName?: string; uploadType?: string },
   ) {
     if (!file) {
-      throw new BadRequestException('File is required');
+      throw new BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB (File is required or exceeds 5MB limit)');
     }
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB

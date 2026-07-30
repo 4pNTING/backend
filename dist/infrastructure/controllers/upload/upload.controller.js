@@ -43,7 +43,7 @@ let UploadController = class UploadController {
     }
     async uploadFile(file, body) {
         if (!file) {
-            throw new common_1.BadRequestException('File is required');
+            throw new common_1.BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB (File is required or exceeds 5MB limit)');
         }
         const MAX_FILE_SIZE = 5 * 1024 * 1024;
         if (file.size > MAX_FILE_SIZE) {
