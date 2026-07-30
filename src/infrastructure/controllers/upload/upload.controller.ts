@@ -44,7 +44,7 @@ export class UploadController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage,
-      limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+      limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
     }),
   )
   async uploadFile(
@@ -53,6 +53,11 @@ export class UploadController {
   ) {
     if (!file) {
       throw new BadRequestException('File is required');
+    }
+
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    if (file.size > MAX_FILE_SIZE) {
+      throw new BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB');
     }
 
     const fileUrl = `/uploads/${file.filename}`;

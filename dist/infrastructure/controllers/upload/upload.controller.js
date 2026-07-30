@@ -45,6 +45,10 @@ let UploadController = class UploadController {
         if (!file) {
             throw new common_1.BadRequestException('File is required');
         }
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
+        if (file.size > MAX_FILE_SIZE) {
+            throw new common_1.BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB');
+        }
         const fileUrl = `/uploads/${file.filename}`;
         const ownerId = body.ownerId || 'unassigned';
         const ownerType = body.ownerType || 'general';
@@ -82,7 +86,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage,
-        limits: { fileSize: 20 * 1024 * 1024 },
+        limits: { fileSize: 5 * 1024 * 1024 },
     })),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
