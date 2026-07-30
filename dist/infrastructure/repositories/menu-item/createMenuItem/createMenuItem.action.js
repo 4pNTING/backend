@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMenuItemAction = void 0;
-const menu_item_entity_1 = require("@infrastructure/entities/menu-item.entity");
-const menu_item_model_1 = require("@domain/models/menu-item.model");
-const enum_1 = require("@domain/enums/enum");
+const menu_item_entity_1 = require("../../../entities/menu-item.entity");
+const menu_item_model_1 = require("../../../../domain/models/menu-item.model");
+const enum_1 = require("../../../../domain/enums/enum");
 class CreateMenuItemAction extends menu_item_model_1.MenuItemModel {
     constructor(session) {
         super();

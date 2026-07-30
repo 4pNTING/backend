@@ -1,8 +1,8 @@
 import { DataSource, Repository } from 'typeorm';
-import { TableEntity } from '@infrastructure/entities/table.entity';
-import { ITableRepository } from '@domain/repositories/table.repository.interface';
-import { CreateTableRequest, CreateTableResponse, UpdateTableRequest, DeleteTableRequest, LoadAllTableResponse, LoadTableByIdRequest, LoadTableByIdResponse, LoadTableByZoneRequest, LoadTableByZoneResponse } from '@domain/models/table.model';
-import { QueryProps } from '@domain/models/query.model';
+import { TableEntity } from '../../entities/table.entity';
+import { ITableRepository } from '../../../domain/repositories/table.repository.interface';
+import { CreateTableRequest, CreateTableResponse, UpdateTableRequest, DeleteTableRequest, LoadAllTableResponse, LoadTableByIdRequest, LoadTableByIdResponse, LoadTableByZoneRequest, LoadTableByZoneResponse } from '../../../domain/models/table.model';
+import { QueryProps } from '../../../domain/models/query.model';
 import { RedisService } from '../../cache/redis.service';
 export declare class DatabaseTableRepository implements ITableRepository {
     private readonly tableEntity;

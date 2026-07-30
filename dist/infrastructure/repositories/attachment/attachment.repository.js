@@ -17,7 +17,7 @@ exports.DatabaseAttachmentRepository = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const attachment_entity_1 = require("@infrastructure/entities/attachment.entity");
+const attachment_entity_1 = require("../../entities/attachment.entity");
 const redis_service_1 = require("../../cache/redis.service");
 const cache_keys_constants_1 = require("../../cache/cache-keys.constants");
 let DatabaseAttachmentRepository = DatabaseAttachmentRepository_1 = class DatabaseAttachmentRepository {

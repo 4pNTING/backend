@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateTableValidation = void 0;
-const table_model_1 = require("@domain/models/table.model");
+const table_model_1 = require("../../../../domain/models/table.model");
 const common_1 = require("@nestjs/common");
 class UpdateTableValidation extends table_model_1.UpdateTableRequest {
     constructor(tableRepository) {

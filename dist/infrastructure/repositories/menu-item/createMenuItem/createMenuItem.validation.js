@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMenuItemValidation = void 0;
-const menu_item_model_1 = require("@domain/models/menu-item.model");
+const menu_item_model_1 = require("../../../../domain/models/menu-item.model");
 const common_1 = require("@nestjs/common");
 class CreateMenuItemValidation extends menu_item_model_1.CreateMenuItemRequest {
     constructor(menuItemRepository) {

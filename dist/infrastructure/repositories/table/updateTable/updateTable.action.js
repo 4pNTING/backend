@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateTableAction = void 0;
-const table_entity_1 = require("@infrastructure/entities/table.entity");
+const table_entity_1 = require("../../../entities/table.entity");
 class UpdateTableAction {
     constructor(session) {
         this.session = session;

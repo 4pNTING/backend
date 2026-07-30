@@ -1,8 +1,8 @@
 import { DataSource, Repository } from 'typeorm';
-import { MenuItemEntity } from '@infrastructure/entities/menu-item.entity';
-import { IMenuItemRepository } from '@domain/repositories/menu-item.repository.interface';
-import { CreateMenuItemRequest, CreateMenuItemResponse, UpdateMenuItemRequest, DeleteMenuItemRequest, LoadAllMenuItemResponse, LoadMenuItemByIdRequest, LoadMenuItemByIdResponse, LoadMenuItemByCategoryRequest, LoadMenuItemByCategoryResponse } from '@domain/models/menu-item.model';
-import { QueryProps } from '@domain/models/query.model';
+import { MenuItemEntity } from '../../entities/menu-item.entity';
+import { IMenuItemRepository } from '../../../domain/repositories/menu-item.repository.interface';
+import { CreateMenuItemRequest, CreateMenuItemResponse, UpdateMenuItemRequest, DeleteMenuItemRequest, LoadAllMenuItemResponse, LoadMenuItemByIdRequest, LoadMenuItemByIdResponse, LoadMenuItemByCategoryRequest, LoadMenuItemByCategoryResponse } from '../../../domain/models/menu-item.model';
+import { QueryProps } from '../../../domain/models/query.model';
 import { RedisService } from '../../cache/redis.service';
 export declare class DatabaseMenuItemRepository implements IMenuItemRepository {
     private readonly menuItemEntity;

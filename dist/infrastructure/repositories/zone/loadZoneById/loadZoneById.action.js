@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoadZoneByIdAction = void 0;
-const zone_entity_1 = require("@infrastructure/entities/zone.entity");
+const zone_entity_1 = require("../../../entities/zone.entity");
 class LoadZoneByIdAction {
     constructor(session) {
         this.session = session;

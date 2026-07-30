@@ -1,4 +1,4 @@
-import { ITableRepository } from '@domain/repositories/table.repository.interface';
+import { ITableRepository } from '../../domain/repositories/table.repository.interface';
 export declare class RestoreTableUseCase {
     private readonly tableRepository;
     constructor(tableRepository: ITableRepository);

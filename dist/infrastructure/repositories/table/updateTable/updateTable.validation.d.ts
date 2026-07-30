@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { TableEntity } from '@infrastructure/entities/table.entity';
-import { UpdateTableRequest } from '@domain/models/table.model';
+import { TableEntity } from '../../../entities/table.entity';
+import { UpdateTableRequest } from '../../../../domain/models/table.model';
 export declare class UpdateTableValidation extends UpdateTableRequest {
     private readonly tableRepository;
     constructor(tableRepository: Repository<TableEntity>);

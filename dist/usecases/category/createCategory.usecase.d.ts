@@ -1,5 +1,5 @@
-import { ICategoryRepository } from '@domain/repositories/category.repository.interface';
-import { CreateCategoryRequest, CreateCategoryResponse } from '@domain/models/category.model';
+import { ICategoryRepository } from '../../domain/repositories/category.repository.interface';
+import { CreateCategoryRequest, CreateCategoryResponse } from '../../domain/models/category.model';
 export declare class CreateCategoryUseCase {
     private readonly categoryRepository;
     constructor(categoryRepository: ICategoryRepository);

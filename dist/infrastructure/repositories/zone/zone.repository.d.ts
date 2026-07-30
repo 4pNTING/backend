@@ -1,8 +1,8 @@
 import { Repository, DataSource } from 'typeorm';
 import { ZoneEntity } from '../../entities/zone.entity';
-import { IZoneRepository } from '@domain/repositories/zone.repository.interface';
-import { CreateZoneRequest, CreateZoneResponse, UpdateZoneRequest, DeleteZoneRequest, LoadAllZoneResponse, LoadZoneByIdRequest, LoadZoneByIdResponse } from '@domain/models/zone.model';
-import { QueryProps } from '@domain/models/query.model';
+import { IZoneRepository } from '../../../domain/repositories/zone.repository.interface';
+import { CreateZoneRequest, CreateZoneResponse, UpdateZoneRequest, DeleteZoneRequest, LoadAllZoneResponse, LoadZoneByIdRequest, LoadZoneByIdResponse } from '../../../domain/models/zone.model';
+import { QueryProps } from '../../../domain/models/query.model';
 import { RedisService } from '../../cache/redis.service';
 export declare class DatabaseZoneRepository implements IZoneRepository {
     private readonly zoneEntityRepository;

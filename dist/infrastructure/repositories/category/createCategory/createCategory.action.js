@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCategoryAction = void 0;
-const category_entity_1 = require("@infrastructure/entities/category.entity");
-const category_model_1 = require("@domain/models/category.model");
-const enum_1 = require("@domain/enums/enum");
+const category_entity_1 = require("../../../entities/category.entity");
+const category_model_1 = require("../../../../domain/models/category.model");
+const enum_1 = require("../../../../domain/enums/enum");
 class CreateCategoryAction extends category_model_1.CategoryModel {
     constructor(session) {
         super();

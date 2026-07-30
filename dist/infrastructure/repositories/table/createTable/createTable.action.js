@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateTableAction = void 0;
-const table_entity_1 = require("@infrastructure/entities/table.entity");
-const table_model_1 = require("@domain/models/table.model");
-const enum_1 = require("@domain/enums/enum");
+const table_entity_1 = require("../../../entities/table.entity");
+const table_model_1 = require("../../../../domain/models/table.model");
+const enum_1 = require("../../../../domain/enums/enum");
 class CreateTableAction extends table_model_1.TableModel {
     constructor(session) {
         super();

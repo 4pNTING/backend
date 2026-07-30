@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "POS Backend with gRPC and TypeORM",
   "scripts": {
-    "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && tsc && npm run copy:proto",
+    "build": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\" && tsc && npx tsc-alias && npm run copy:proto",
     "copy:proto": "node copy-proto.js",
     "start": "node dist/main.js",
     "start:dev": "ts-node -r tsconfig-paths/register src/main.ts",

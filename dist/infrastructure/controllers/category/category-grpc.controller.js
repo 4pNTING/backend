@@ -15,13 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryGrpcController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
-const category_model_1 = require("@domain/models/category.model");
+const category_model_1 = require("../../../domain/models/category.model");
 const category_usecases_proxy_module_1 = require("../../usecases-proxy/category-usecases-proxy.module");
-const createCategory_usecase_1 = require("@usecases/category/createCategory.usecase");
-const updateCategory_usecase_1 = require("@usecases/category/updateCategory.usecase");
-const deleteCategory_usecase_1 = require("@usecases/category/deleteCategory.usecase");
-const loadCategory_usecase_1 = require("@usecases/category/loadCategory.usecase");
-const loadByIDCategory_usecase_1 = require("@usecases/category/loadByIDCategory.usecase");
+const createCategory_usecase_1 = require("../../../usecases/category/createCategory.usecase");
+const updateCategory_usecase_1 = require("../../../usecases/category/updateCategory.usecase");
+const deleteCategory_usecase_1 = require("../../../usecases/category/deleteCategory.usecase");
+const loadCategory_usecase_1 = require("../../../usecases/category/loadCategory.usecase");
+const loadByIDCategory_usecase_1 = require("../../../usecases/category/loadByIDCategory.usecase");
 let CategoryGrpcController = class CategoryGrpcController {
     constructor(createCategoryUseCase, updateCategoryUseCase, deleteCategoryUseCase, loadCategoryUseCase, loadCategoryByIdUseCase) {
         this.createCategoryUseCase = createCategoryUseCase;

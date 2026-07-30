@@ -1,5 +1,5 @@
 import { QueryRunner } from 'typeorm';
-import { ZoneModel, CreateZoneRequest, CreateZoneResponse } from '@domain/models/zone.model';
+import { ZoneModel, CreateZoneRequest, CreateZoneResponse } from '../../../../domain/models/zone.model';
 export declare class CreateZoneAction extends ZoneModel {
     private readonly session;
     constructor(session: QueryRunner);

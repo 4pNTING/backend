@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteCategoryValidation = void 0;
-const category_model_1 = require("@domain/models/category.model");
+const category_model_1 = require("../../../../domain/models/category.model");
 const common_1 = require("@nestjs/common");
 class DeleteCategoryValidation extends category_model_1.DeleteCategoryRequest {
     constructor(categoryRepository) {

@@ -1,5 +1,5 @@
 import { QueryRunner } from 'typeorm';
-import { TableModel, CreateTableRequest, CreateTableResponse } from '@domain/models/table.model';
+import { TableModel, CreateTableRequest, CreateTableResponse } from '../../../../domain/models/table.model';
 export declare class CreateTableAction extends TableModel {
     private readonly session;
     constructor(session: QueryRunner);

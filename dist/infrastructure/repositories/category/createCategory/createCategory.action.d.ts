@@ -1,5 +1,5 @@
 import { QueryRunner } from 'typeorm';
-import { CategoryModel, CreateCategoryRequest, CreateCategoryResponse } from '@domain/models/category.model';
+import { CategoryModel, CreateCategoryRequest, CreateCategoryResponse } from '../../../../domain/models/category.model';
 export declare class CreateCategoryAction extends CategoryModel {
     private readonly session;
     constructor(session: QueryRunner);

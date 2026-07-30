@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoadAllCategoryAction = void 0;
-const category_entity_1 = require("@infrastructure/entities/category.entity");
+const category_entity_1 = require("../../../entities/category.entity");
 class LoadAllCategoryAction {
     constructor(session) {
         this.session = session;

@@ -1,8 +1,8 @@
 import { DataSource, Repository } from 'typeorm';
-import { AttachmentEntity } from '@infrastructure/entities/attachment.entity';
-import { IAttachmentRepository } from '@domain/repositories/attachment.repository.interface';
-import { AttachmentModel, CreateAttachmentRequest, CreateAttachmentResponse, UpdateAttachmentRequest, DeleteAttachmentRequest, LoadAllAttachmentResponse, LoadAttachmentByIdRequest, LoadAttachmentByIdResponse } from '@domain/models/attachment.model';
-import { QueryProps } from '@domain/models/query.model';
+import { AttachmentEntity } from '../../entities/attachment.entity';
+import { IAttachmentRepository } from '../../../domain/repositories/attachment.repository.interface';
+import { AttachmentModel, CreateAttachmentRequest, CreateAttachmentResponse, UpdateAttachmentRequest, DeleteAttachmentRequest, LoadAllAttachmentResponse, LoadAttachmentByIdRequest, LoadAttachmentByIdResponse } from '../../../domain/models/attachment.model';
+import { QueryProps } from '../../../domain/models/query.model';
 import { RedisService } from '../../cache/redis.service';
 export declare class DatabaseAttachmentRepository implements IAttachmentRepository {
     private readonly attachmentEntity;
