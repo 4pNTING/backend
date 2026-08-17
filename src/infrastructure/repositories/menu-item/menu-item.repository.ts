@@ -36,7 +36,7 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
             const result = await new CreateMenuItemAction(session).execute(params);
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(CacheKeys.MENU_ITEM_LIST_PATTERN);
             if (params.categoryId) {
                 await this.redisService.del(CacheKeys.MENU_ITEM_BY_CATEGORY(params.categoryId));
             }
@@ -65,7 +65,7 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
             await session.manager.update(MenuItemEntity, { _id: params._id }, updateData);
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(CacheKeys.MENU_ITEM_LIST_PATTERN);
             await this.redisService.del(CacheKeys.MENU_ITEM_BY_ID(params._id));
         } catch (error) {
             await session.rollbackTransaction();
@@ -83,7 +83,7 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
             await session.manager.softDelete(MenuItemEntity, params._id);
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(CacheKeys.MENU_ITEM_LIST_PATTERN);
             await this.redisService.del(CacheKeys.MENU_ITEM_BY_ID(params._id));
         } catch (error) {
             await session.rollbackTransaction();
@@ -101,7 +101,7 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
             await session.manager.restore(MenuItemEntity, { _id });
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(CacheKeys.MENU_ITEM_LIST_PATTERN);
             await this.redisService.del(CacheKeys.MENU_ITEM_BY_ID(_id));
         } catch (error) {
             await session.rollbackTransaction();
@@ -112,7 +112,8 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
     }
 
     async findAll(query: QueryProps): Promise<LoadAllMenuItemResponse> {
-        const cached = await this.redisService.get<LoadAllMenuItemResponse>(CacheKeys.MENU_ITEM_LIST);
+        const cacheKey = CacheKeys.MENU_ITEM_LIST_QUERY(query);
+        const cached = await this.redisService.get<LoadAllMenuItemResponse>(cacheKey);
         if (cached) return cached;
 
         const session = this.dataSource.createQueryRunner();
@@ -121,7 +122,7 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
         try {
             const result = await new LoadAllMenuItemAction(session).execute(query);
             await session.commitTransaction();
-            await this.redisService.set(CacheKeys.MENU_ITEM_LIST, result);
+            await this.redisService.set(cacheKey, result);
             return result;
         } catch (error) {
             await session.rollbackTransaction();
