@@ -22,6 +22,7 @@ const createMenuItem_validation_1 = require("./createMenuItem/createMenuItem.val
 const loadAllMenuItem_action_1 = require("./loadAllMenuItem/loadAllMenuItem.action");
 const redis_service_1 = require("../../cache/redis.service");
 const cache_keys_constants_1 = require("../../cache/cache-keys.constants");
+const enum_1 = require("../../../domain/enums/enum");
 let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
     constructor(menuItemEntity, dataSource, redisService) {
         this.menuItemEntity = menuItemEntity;
@@ -36,7 +37,7 @@ let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
             await new createMenuItem_validation_1.CreateMenuItemValidation(this.menuItemEntity).execute(params);
             const result = await new createMenuItem_action_1.CreateMenuItemAction(session).execute(params);
             await session.commitTransaction();
-            await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST_PATTERN);
             if (params.categoryId) {
                 await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_BY_CATEGORY(params.categoryId));
             }
@@ -70,7 +71,7 @@ let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
                 updateData.isActive = params.isActive;
             await session.manager.update(menu_item_entity_1.MenuItemEntity, { _id: params._id }, updateData);
             await session.commitTransaction();
-            await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST_PATTERN);
             await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_BY_ID(params._id));
         }
         catch (error) {
@@ -86,9 +87,11 @@ let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(menu_item_entity_1.MenuItemEntity, params._id);
+            await session.manager.update(menu_item_entity_1.MenuItemEntity, { _id: params._id }, {
+                isActive: enum_1.ActiveStatus.inactive,
+            });
             await session.commitTransaction();
-            await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST_PATTERN);
             await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_BY_ID(params._id));
         }
         catch (error) {
@@ -105,8 +108,9 @@ let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
         await session.startTransaction();
         try {
             await session.manager.restore(menu_item_entity_1.MenuItemEntity, { _id });
+            await session.manager.update(menu_item_entity_1.MenuItemEntity, { _id }, { isActive: enum_1.ActiveStatus.active });
             await session.commitTransaction();
-            await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST);
+            await this.redisService.delByPattern(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST_PATTERN);
             await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_ITEM_BY_ID(_id));
         }
         catch (error) {
@@ -118,7 +122,8 @@ let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
         }
     }
     async findAll(query) {
-        const cached = await this.redisService.get(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST);
+        const cacheKey = cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST_QUERY(query);
+        const cached = await this.redisService.get(cacheKey);
         if (cached)
             return cached;
         const session = this.dataSource.createQueryRunner();
@@ -127,7 +132,7 @@ let DatabaseMenuItemRepository = class DatabaseMenuItemRepository {
         try {
             const result = await new loadAllMenuItem_action_1.LoadAllMenuItemAction(session).execute(query);
             await session.commitTransaction();
-            await this.redisService.set(cache_keys_constants_1.CacheKeys.MENU_ITEM_LIST, result);
+            await this.redisService.set(cacheKey, result);
             return result;
         }
         catch (error) {

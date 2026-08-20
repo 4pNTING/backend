@@ -21,13 +21,15 @@ const menu_item_usecases_proxy_module_1 = require("../../usecases-proxy/menu-ite
 const createMenuItem_usecase_1 = require("../../../usecases/menu-item/createMenuItem.usecase");
 const updateMenuItem_usecase_1 = require("../../../usecases/menu-item/updateMenuItem.usecase");
 const deleteMenuItem_usecase_1 = require("../../../usecases/menu-item/deleteMenuItem.usecase");
+const restoreMenuItem_usecase_1 = require("../../../usecases/menu-item/restoreMenuItem.usecase");
 const loadMenuItem_usecase_1 = require("../../../usecases/menu-item/loadMenuItem.usecase");
 const loadByIDMenuItem_usecase_1 = require("../../../usecases/menu-item/loadByIDMenuItem.usecase");
 let MenuItemResolver = class MenuItemResolver {
-    constructor(createMenuItemUseCase, updateMenuItemUseCase, deleteMenuItemUseCase, loadMenuItemUseCase, loadMenuItemByIdUseCase) {
+    constructor(createMenuItemUseCase, updateMenuItemUseCase, deleteMenuItemUseCase, restoreMenuItemUseCase, loadMenuItemUseCase, loadMenuItemByIdUseCase) {
         this.createMenuItemUseCase = createMenuItemUseCase;
         this.updateMenuItemUseCase = updateMenuItemUseCase;
         this.deleteMenuItemUseCase = deleteMenuItemUseCase;
+        this.restoreMenuItemUseCase = restoreMenuItemUseCase;
         this.loadMenuItemUseCase = loadMenuItemUseCase;
         this.loadMenuItemByIdUseCase = loadMenuItemByIdUseCase;
     }
@@ -70,6 +72,10 @@ let MenuItemResolver = class MenuItemResolver {
         await this.deleteMenuItemUseCase.execute(input);
         return { menuItem: { _id: input._id } };
     }
+    async restoreMenuItem(input) {
+        const result = await this.restoreMenuItemUseCase.execute(input._id);
+        return { menuItem: result };
+    }
 };
 exports.MenuItemResolver = MenuItemResolver;
 __decorate([
@@ -107,17 +113,26 @@ __decorate([
     __metadata("design:paramtypes", [menu_item_model_1.DeleteMenuItemDto]),
     __metadata("design:returntype", Promise)
 ], MenuItemResolver.prototype, "deleteMenuItem", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => menu_item_model_1.RestoreMenuItemResponse),
+    __param(0, (0, graphql_1.Args)('input')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [menu_item_model_1.RestoreMenuItemDto]),
+    __metadata("design:returntype", Promise)
+], MenuItemResolver.prototype, "restoreMenuItem", null);
 exports.MenuItemResolver = MenuItemResolver = __decorate([
     (0, graphql_1.Resolver)(() => menu_item_model_1.MenuItem),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.CREATE_MENU_ITEM_PROXY)),
     __param(1, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.UPDATE_MENU_ITEM_PROXY)),
     __param(2, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.DELETE_MENU_ITEM_PROXY)),
-    __param(3, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.LOAD_MENU_ITEM_PROXY)),
-    __param(4, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.LOAD_BY_ID_MENU_ITEM_PROXY)),
+    __param(3, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.RESTORE_MENU_ITEM_PROXY)),
+    __param(4, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.LOAD_MENU_ITEM_PROXY)),
+    __param(5, (0, common_1.Inject)(menu_item_usecases_proxy_module_1.MenuItemUsecasesProxyModule.LOAD_BY_ID_MENU_ITEM_PROXY)),
     __metadata("design:paramtypes", [createMenuItem_usecase_1.CreateMenuItemUseCase,
         updateMenuItem_usecase_1.UpdateMenuItemUseCase,
         deleteMenuItem_usecase_1.DeleteMenuItemUseCase,
+        restoreMenuItem_usecase_1.RestoreMenuItemUseCase,
         loadMenuItem_usecase_1.LoadMenuItemUseCase,
         loadByIDMenuItem_usecase_1.LoadByIDMenuItemUseCase])
 ], MenuItemResolver);

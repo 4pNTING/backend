@@ -16,6 +16,7 @@ import {
 import { QueryProps } from '@domain/models/query.model';
 import { RedisService } from '../../cache/redis.service';
 import { CacheKeys } from '../../cache/cache-keys.constants';
+import { ActiveStatus } from '@domain/enums/enum';
 
 @Injectable()
 export class DatabaseAttachmentRepository implements IAttachmentRepository {
@@ -121,6 +122,7 @@ export class DatabaseAttachmentRepository implements IAttachmentRepository {
     await session.startTransaction();
     try {
       await session.manager.restore(AttachmentEntity, _id);
+      await session.manager.update(AttachmentEntity, _id, { isActive: ActiveStatus.active });
       await session.commitTransaction();
       await this.redisService.delByPattern(CacheKeys.ATTACHMENT_LIST_PATTERN);
       await this.redisService.del(CacheKeys.ATTACHMENT_BY_ID(_id));

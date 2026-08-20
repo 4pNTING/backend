@@ -17,6 +17,7 @@ import { LoadAllMenuItemAction }    from './loadAllMenuItem/loadAllMenuItem.acti
 
 import { RedisService } from '../../cache/redis.service';
 import { CacheKeys }    from '../../cache/cache-keys.constants';
+import { ActiveStatus } from '@domain/enums/enum';
 
 @Injectable()
 export class DatabaseMenuItemRepository implements IMenuItemRepository {
@@ -80,7 +81,9 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(MenuItemEntity, params._id);
+            await session.manager.update(MenuItemEntity, { _id: params._id }, {
+                isActive: ActiveStatus.inactive,
+            });
             await session.commitTransaction();
 
             await this.redisService.delByPattern(CacheKeys.MENU_ITEM_LIST_PATTERN);
@@ -99,6 +102,7 @@ export class DatabaseMenuItemRepository implements IMenuItemRepository {
         await session.startTransaction();
         try {
             await session.manager.restore(MenuItemEntity, { _id });
+            await session.manager.update(MenuItemEntity, { _id }, { isActive: ActiveStatus.active });
             await session.commitTransaction();
 
             await this.redisService.delByPattern(CacheKeys.MENU_ITEM_LIST_PATTERN);

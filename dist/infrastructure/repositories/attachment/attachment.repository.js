@@ -20,6 +20,7 @@ const typeorm_2 = require("typeorm");
 const attachment_entity_1 = require("../../entities/attachment.entity");
 const redis_service_1 = require("../../cache/redis.service");
 const cache_keys_constants_1 = require("../../cache/cache-keys.constants");
+const enum_1 = require("../../../domain/enums/enum");
 let DatabaseAttachmentRepository = DatabaseAttachmentRepository_1 = class DatabaseAttachmentRepository {
     constructor(attachmentEntity, dataSource, redisService) {
         this.attachmentEntity = attachmentEntity;
@@ -118,6 +119,7 @@ let DatabaseAttachmentRepository = DatabaseAttachmentRepository_1 = class Databa
         await session.startTransaction();
         try {
             await session.manager.restore(attachment_entity_1.AttachmentEntity, _id);
+            await session.manager.update(attachment_entity_1.AttachmentEntity, _id, { isActive: enum_1.ActiveStatus.active });
             await session.commitTransaction();
             await this.redisService.delByPattern(cache_keys_constants_1.CacheKeys.ATTACHMENT_LIST_PATTERN);
             await this.redisService.del(cache_keys_constants_1.CacheKeys.ATTACHMENT_BY_ID(_id));

@@ -8,12 +8,12 @@ class LoadAllCategoryAction {
     }
     async execute(query) {
         try {
-            const qb = this.session.manager.createQueryBuilder(category_entity_1.CategoryEntity, 'category');
+            const qb = this.session.manager.createQueryBuilder(category_entity_1.CategoryEntity, 'category').withDeleted();
             if (query.search?.q) {
                 const keyword = `%${query.search.q}%`;
                 qb.andWhere(`(category.name LIKE :keyword OR category.description LIKE :keyword)`, { keyword });
             }
-            if (query.isActive !== undefined) {
+            if (query.isActive !== undefined && query.isActive !== 'all') {
                 qb.andWhere('category.isActive = :isActive', { isActive: query.isActive });
             }
             const page = query.paginate?.page || 1;

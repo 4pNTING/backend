@@ -8,7 +8,9 @@ class LoadAllTableAction {
     }
     async execute(query) {
         try {
-            const qb = this.session.manager.createQueryBuilder(table_entity_1.TableEntity, 'table');
+            const qb = this.session.manager.createQueryBuilder(table_entity_1.TableEntity, 'table')
+                .leftJoinAndSelect('table.zone', 'zone')
+                .withDeleted();
             if (query.search?.q) {
                 const keyword = `%${query.search.q}%`;
                 qb.andWhere('table.number LIKE :keyword', { keyword });

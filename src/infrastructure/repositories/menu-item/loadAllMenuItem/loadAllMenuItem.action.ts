@@ -8,7 +8,7 @@ export class LoadAllMenuItemAction {
 
     public async execute(query: QueryProps): Promise<LoadAllMenuItemResponse> {
         try {
-            const qb = this.session.manager.createQueryBuilder(MenuItemEntity, 'item');
+            const qb = this.session.manager.createQueryBuilder(MenuItemEntity, 'item').withDeleted();
 
             if (query.search?.q) {
                 const keyword = `%${query.search.q}%`;

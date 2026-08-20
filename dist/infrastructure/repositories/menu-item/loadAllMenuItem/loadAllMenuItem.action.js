@@ -8,7 +8,7 @@ class LoadAllMenuItemAction {
     }
     async execute(query) {
         try {
-            const qb = this.session.manager.createQueryBuilder(menu_item_entity_1.MenuItemEntity, 'item');
+            const qb = this.session.manager.createQueryBuilder(menu_item_entity_1.MenuItemEntity, 'item').withDeleted();
             if (query.search?.q) {
                 const keyword = `%${query.search.q}%`;
                 qb.andWhere('(item.name LIKE :keyword OR item.description LIKE :keyword)', { keyword });

@@ -8,7 +8,9 @@ export class LoadAllTableAction {
 
     public async execute(query: QueryProps): Promise<LoadAllTableResponse> {
         try {
-            const qb = this.session.manager.createQueryBuilder(TableEntity, 'table');
+            const qb = this.session.manager.createQueryBuilder(TableEntity, 'table')
+                .leftJoinAndSelect('table.zone', 'zone')
+                .withDeleted();
 
             // Search
             if (query.search?.q) {

@@ -97,7 +97,8 @@ export class DatabaseCategoryRepository implements ICategoryRepository {
     await session.connect();
     await session.startTransaction();
     try {
-      await session.manager.softDelete(CategoryEntity, params._id);
+      await new DeleteCategoryValidation(this.categoryEntity).execute(params);
+      await new DeleteCategoryAction(session).execute(params._id);
       await session.commitTransaction();
 
       // Invalidate all paginated list caches และ cache ของ item นี้

@@ -8,12 +8,12 @@ class LoadAllZoneAction {
     }
     async execute(query) {
         try {
-            const qb = this.session.manager.createQueryBuilder(zone_entity_1.ZoneEntity, 'zone');
+            const qb = this.session.manager.createQueryBuilder(zone_entity_1.ZoneEntity, 'zone').withDeleted();
             if (query.search?.q) {
                 const keyword = `%${query.search.q}%`;
                 qb.andWhere(`(zone.name LIKE :keyword)`, { keyword });
             }
-            if (query.isActive !== undefined) {
+            if (query.isActive !== undefined && query.isActive !== 'all') {
                 qb.andWhere('zone.isActive = :isActive', { isActive: query.isActive });
             }
             const page = query.paginate?.page || 1;

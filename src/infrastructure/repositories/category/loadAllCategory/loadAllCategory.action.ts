@@ -8,7 +8,7 @@ export class LoadAllCategoryAction {
 
   public async execute(query: QueryProps): Promise<LoadAllCategoryResponse> {
     try {
-      const qb = this.session.manager.createQueryBuilder(CategoryEntity, 'category');
+      const qb = this.session.manager.createQueryBuilder(CategoryEntity, 'category').withDeleted();
 
       // 1. Search 
       if (query.search?.q) {
@@ -20,7 +20,7 @@ export class LoadAllCategoryAction {
       }
 
       // 1.5 Filter (isActive)
-      if (query.isActive !== undefined) {
+      if (query.isActive !== undefined && query.isActive !== 'all') {
         qb.andWhere('category.isActive = :isActive', { isActive: query.isActive });
       }
 

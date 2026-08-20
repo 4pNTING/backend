@@ -17,6 +17,9 @@ export declare class LoadMenuItemResponse {
     count: number;
     menuItem: MenuItem[];
 }
+export declare class RestoreMenuItemResponse {
+    menuItem: MenuItem;
+}
 export declare class LoadMenuItemByIdResponse {
     menuItem: MenuItem;
 }
@@ -63,4 +66,7 @@ export declare class DeleteMenuItemDto {
 }
 export declare class LoadMenuItemByCategoryDto {
     categoryId: string;
+}
+export declare class RestoreMenuItemDto {
+    _id: string;
 }

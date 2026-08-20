@@ -74,7 +74,10 @@ export class DatabaseMenuOptionRepository implements IMenuOptionRepository {
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(MenuOptionEntity, params._id);
+            await session.manager.update(MenuOptionEntity, { _id: params._id }, {
+                isActive: ActiveStatus.inactive,
+                deletedAt: null as any
+            });
             await session.commitTransaction();
 
             await this.redisService.del(CacheKeys.MENU_OPTION_BY_ID(params._id));
@@ -94,6 +97,7 @@ export class DatabaseMenuOptionRepository implements IMenuOptionRepository {
         const entities = await this.menuOptionEntity.find({
             where: { menuItemId: params.menuItemId },
             order: { name: 'ASC' },
+            withDeleted: true
         });
         const result = { items: entities };
         await this.redisService.set(cacheKey, result);

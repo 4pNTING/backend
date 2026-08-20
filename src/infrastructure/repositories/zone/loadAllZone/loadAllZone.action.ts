@@ -8,7 +8,7 @@ export class LoadAllZoneAction {
 
     public async execute(query: QueryProps): Promise<LoadAllZoneResponse> {
         try {
-            const qb = this.session.manager.createQueryBuilder(ZoneEntity, 'zone');
+            const qb = this.session.manager.createQueryBuilder(ZoneEntity, 'zone').withDeleted();
 
             if (query.search?.q) {
                 const keyword = `%${query.search.q}%`;
@@ -18,7 +18,7 @@ export class LoadAllZoneAction {
                 );
             }
 
-            if (query.isActive !== undefined) {
+            if (query.isActive !== undefined && query.isActive !== 'all') {
                 qb.andWhere('zone.isActive = :isActive', { isActive: query.isActive });
             }
 

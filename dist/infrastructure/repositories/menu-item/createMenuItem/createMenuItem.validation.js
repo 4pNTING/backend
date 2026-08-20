@@ -24,7 +24,7 @@ class CreateMenuItemValidation extends menu_item_model_1.CreateMenuItemRequest {
         if (!this.categoryId) {
             throw new common_1.BadRequestException('Category ID is required');
         }
-        if (this.price === undefined || this.price < 0) {
+        if (this.price === undefined || this.price === null || this.price < 0) {
             throw new common_1.BadRequestException('Price must be a non-negative number');
         }
     }

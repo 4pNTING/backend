@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const table_entity_1 = require("../../entities/table.entity");
+const enum_1 = require("../../../domain/enums/enum");
 const createTable_action_1 = require("./createTable/createTable.action");
 const createTable_validation_1 = require("./createTable/createTable.validation");
 const updateTable_action_1 = require("./updateTable/updateTable.action");
@@ -78,7 +79,10 @@ let DatabaseTableRepository = class DatabaseTableRepository {
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(table_entity_1.TableEntity, params._id);
+            await session.manager.update(table_entity_1.TableEntity, { _id: params._id }, {
+                isActive: enum_1.ActiveStatus.inactive,
+                deletedAt: null
+            });
             await session.commitTransaction();
             await this.redisService.del(cache_keys_constants_1.CacheKeys.TABLE_LIST);
             await this.redisService.del(cache_keys_constants_1.CacheKeys.TABLE_BY_ID(params._id));

@@ -10,6 +10,7 @@ import {
     LoadTableByZoneRequest, LoadTableByZoneResponse,
 } from '@domain/models/table.model';
 import { QueryProps } from '@domain/models/query.model';
+import { ActiveStatus } from '@domain/enums/enum';
 
 import { CreateTableAction } from './createTable/createTable.action';
 import { CreateTableValidation } from './createTable/createTable.validation';
@@ -77,7 +78,10 @@ export class DatabaseTableRepository implements ITableRepository {
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(TableEntity, params._id);
+            await session.manager.update(TableEntity, { _id: params._id }, {
+                isActive: ActiveStatus.inactive,
+                deletedAt: null as any
+            });
             await session.commitTransaction();
 
             await this.redisService.del(CacheKeys.TABLE_LIST);

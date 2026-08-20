@@ -17,6 +17,7 @@ const deleteMenuItem_usecase_1 = require("../../usecases/menu-item/deleteMenuIte
 const loadMenuItem_usecase_1 = require("../../usecases/menu-item/loadMenuItem.usecase");
 const loadByIDMenuItem_usecase_1 = require("../../usecases/menu-item/loadByIDMenuItem.usecase");
 const loadMenuItemByCategory_usecase_1 = require("../../usecases/menu-item/loadMenuItemByCategory.usecase");
+const restoreMenuItem_usecase_1 = require("../../usecases/menu-item/restoreMenuItem.usecase");
 let MenuItemUsecasesProxyModule = MenuItemUsecasesProxyModule_1 = class MenuItemUsecasesProxyModule {
     static register() {
         return {
@@ -39,6 +40,11 @@ let MenuItemUsecasesProxyModule = MenuItemUsecasesProxyModule_1 = class MenuItem
                 },
                 {
                     inject: [menu_item_repository_1.DatabaseMenuItemRepository],
+                    provide: MenuItemUsecasesProxyModule_1.RESTORE_MENU_ITEM_PROXY,
+                    useFactory: (repo) => new restoreMenuItem_usecase_1.RestoreMenuItemUseCase(repo),
+                },
+                {
+                    inject: [menu_item_repository_1.DatabaseMenuItemRepository],
                     provide: MenuItemUsecasesProxyModule_1.LOAD_MENU_ITEM_PROXY,
                     useFactory: (repo) => new loadMenuItem_usecase_1.LoadMenuItemUseCase(repo),
                 },
@@ -57,6 +63,7 @@ let MenuItemUsecasesProxyModule = MenuItemUsecasesProxyModule_1 = class MenuItem
                 MenuItemUsecasesProxyModule_1.CREATE_MENU_ITEM_PROXY,
                 MenuItemUsecasesProxyModule_1.UPDATE_MENU_ITEM_PROXY,
                 MenuItemUsecasesProxyModule_1.DELETE_MENU_ITEM_PROXY,
+                MenuItemUsecasesProxyModule_1.RESTORE_MENU_ITEM_PROXY,
                 MenuItemUsecasesProxyModule_1.LOAD_MENU_ITEM_PROXY,
                 MenuItemUsecasesProxyModule_1.LOAD_BY_ID_MENU_ITEM_PROXY,
                 MenuItemUsecasesProxyModule_1.LOAD_MENU_ITEM_BY_CATEGORY_PROXY,
@@ -68,6 +75,7 @@ exports.MenuItemUsecasesProxyModule = MenuItemUsecasesProxyModule;
 MenuItemUsecasesProxyModule.CREATE_MENU_ITEM_PROXY = 'CreateMenuItemProxy';
 MenuItemUsecasesProxyModule.UPDATE_MENU_ITEM_PROXY = 'UpdateMenuItemProxy';
 MenuItemUsecasesProxyModule.DELETE_MENU_ITEM_PROXY = 'DeleteMenuItemProxy';
+MenuItemUsecasesProxyModule.RESTORE_MENU_ITEM_PROXY = 'RestoreMenuItemProxy';
 MenuItemUsecasesProxyModule.LOAD_MENU_ITEM_PROXY = 'LoadMenuItemProxy';
 MenuItemUsecasesProxyModule.LOAD_BY_ID_MENU_ITEM_PROXY = 'LoadByIDMenuItemProxy';
 MenuItemUsecasesProxyModule.LOAD_MENU_ITEM_BY_CATEGORY_PROXY = 'LoadMenuItemByCategoryProxy';

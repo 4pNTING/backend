@@ -79,7 +79,10 @@ let DatabaseMenuOptionRepository = class DatabaseMenuOptionRepository {
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(menu_option_entity_1.MenuOptionEntity, params._id);
+            await session.manager.update(menu_option_entity_1.MenuOptionEntity, { _id: params._id }, {
+                isActive: enum_1.ActiveStatus.inactive,
+                deletedAt: null
+            });
             await session.commitTransaction();
             await this.redisService.del(cache_keys_constants_1.CacheKeys.MENU_OPTION_BY_ID(params._id));
         }
@@ -99,6 +102,7 @@ let DatabaseMenuOptionRepository = class DatabaseMenuOptionRepository {
         const entities = await this.menuOptionEntity.find({
             where: { menuItemId: params.menuItemId },
             order: { name: 'ASC' },
+            withDeleted: true
         });
         const result = { items: entities };
         await this.redisService.set(cacheKey, result);

@@ -65,6 +65,7 @@ export class UploadController {
       throw new BadRequestException('ขนาดไฟล์ต้องไม่เกิน 5MB');
     }
 
+
     const fileUrl = `/uploads/${file.filename}`;
     const ownerId = body.ownerId || 'unassigned';
     const ownerType = body.ownerType || 'general';

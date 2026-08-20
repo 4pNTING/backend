@@ -26,7 +26,7 @@ export class CreateMenuItemValidation extends CreateMenuItemRequest {
         if (!this.categoryId) {
             throw new BadRequestException('Category ID is required');
         }
-        if (this.price === undefined || this.price < 0) {
+        if (this.price === undefined || this.price === null || this.price < 0) {
             throw new BadRequestException('Price must be a non-negative number');
         }
     }

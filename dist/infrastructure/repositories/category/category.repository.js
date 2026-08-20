@@ -22,6 +22,8 @@ const createCategory_action_1 = require("./createCategory/createCategory.action"
 const createCategory_validation_1 = require("./createCategory/createCategory.validation");
 const updateCategory_action_1 = require("./updateCategory/updateCategory.action");
 const updateCategory_validation_1 = require("./updateCategory/updateCategory.validation");
+const deleteCategory_action_1 = require("./deleteCategory/deleteCategory.action");
+const deleteCategory_validation_1 = require("./deleteCategory/deleteCategory.validation");
 const restoreCategory_action_1 = require("./restoreCategory/restoreCategory.action");
 const loadAllCategory_action_1 = require("./loadAllCategory/loadAllCategory.action");
 const loadCategoryById_action_1 = require("./loadCategoryById/loadCategoryById.action");
@@ -80,7 +82,8 @@ let DatabaseCategoryRepository = DatabaseCategoryRepository_1 = class DatabaseCa
         await session.connect();
         await session.startTransaction();
         try {
-            await session.manager.softDelete(category_entity_1.CategoryEntity, params._id);
+            await new deleteCategory_validation_1.DeleteCategoryValidation(this.categoryEntity).execute(params);
+            await new deleteCategory_action_1.DeleteCategoryAction(session).execute(params._id);
             await session.commitTransaction();
             await this.redisService.delByPattern(cache_keys_constants_1.CacheKeys.CATEGORY_LIST_PATTERN);
             await this.redisService.del(cache_keys_constants_1.CacheKeys.CATEGORY_BY_ID(params._id));

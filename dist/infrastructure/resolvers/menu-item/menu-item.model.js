@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoadMenuItemByCategoryDto = exports.DeleteMenuItemDto = exports.LoadMenuItemByIdDto = exports.LoadMenuItemDto = exports.UpdateMenuItemDto = exports.CreateMenuItemDto = exports.DeleteMenuItemResponse = exports.UpdateMenuItemResponse = exports.CreateMenuItemResponse = exports.LoadMenuItemByIdResponse = exports.LoadMenuItemResponse = exports.MenuItem = exports.ActiveStatus = void 0;
+exports.RestoreMenuItemDto = exports.LoadMenuItemByCategoryDto = exports.DeleteMenuItemDto = exports.LoadMenuItemByIdDto = exports.LoadMenuItemDto = exports.UpdateMenuItemDto = exports.CreateMenuItemDto = exports.DeleteMenuItemResponse = exports.UpdateMenuItemResponse = exports.CreateMenuItemResponse = exports.LoadMenuItemByIdResponse = exports.RestoreMenuItemResponse = exports.LoadMenuItemResponse = exports.MenuItem = exports.ActiveStatus = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const class_validator_1 = require("class-validator");
 const common_model_1 = require("../../common/graphql/common.model");
@@ -78,6 +78,16 @@ __decorate([
 exports.LoadMenuItemResponse = LoadMenuItemResponse = __decorate([
     (0, graphql_1.ObjectType)()
 ], LoadMenuItemResponse);
+let RestoreMenuItemResponse = class RestoreMenuItemResponse {
+};
+exports.RestoreMenuItemResponse = RestoreMenuItemResponse;
+__decorate([
+    (0, graphql_1.Field)(() => MenuItem),
+    __metadata("design:type", MenuItem)
+], RestoreMenuItemResponse.prototype, "menuItem", void 0);
+exports.RestoreMenuItemResponse = RestoreMenuItemResponse = __decorate([
+    (0, graphql_1.ObjectType)()
+], RestoreMenuItemResponse);
 let LoadMenuItemByIdResponse = class LoadMenuItemByIdResponse {
 };
 exports.LoadMenuItemByIdResponse = LoadMenuItemByIdResponse;
@@ -139,6 +149,8 @@ __decorate([
 ], CreateMenuItemDto.prototype, "photo", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Float),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateMenuItemDto.prototype, "price", void 0);
 __decorate([
@@ -281,4 +293,16 @@ __decorate([
 exports.LoadMenuItemByCategoryDto = LoadMenuItemByCategoryDto = __decorate([
     (0, graphql_1.InputType)()
 ], LoadMenuItemByCategoryDto);
+let RestoreMenuItemDto = class RestoreMenuItemDto {
+};
+exports.RestoreMenuItemDto = RestoreMenuItemDto;
+__decorate([
+    (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], RestoreMenuItemDto.prototype, "_id", void 0);
+exports.RestoreMenuItemDto = RestoreMenuItemDto = __decorate([
+    (0, graphql_1.InputType)()
+], RestoreMenuItemDto);
 //# sourceMappingURL=menu-item.model.js.map

@@ -5,6 +5,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import express from 'express';
 import { AllExceptionsFilter } from './infrastructure/common/filter/all-exceptions.filter';
+import { UuidTransformInterceptor } from './infrastructure/common/interceptors/uuid-transform.interceptor';
 
 async function bootstrap() {
   // 1. สร้าง App ปกติ (HTTP)
@@ -26,6 +27,7 @@ async function bootstrap() {
 
   // ตั้งค่า HTTP เหมือนเดิม
   app.useGlobalFilters(new AllExceptionsFilter());
+  // app.useGlobalInterceptors(new UuidTransformInterceptor()); // ปิดไว้ตามที่คุยกัน เพื่อใช้ UUID แบบมีขีดตามมาตรฐาน
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
     whitelist: true,

@@ -1,5 +1,5 @@
 import { Field, Int, Float, ObjectType, InputType } from '@nestjs/graphql';
-import { IsString, IsOptional, IsNotEmpty } from 'class-validator';
+import { IsString, IsOptional, IsNotEmpty, IsNumber } from 'class-validator';
 import { ActiveStatus } from '../../common/graphql/common.model';
 
 export { ActiveStatus };
@@ -51,6 +51,12 @@ export class LoadMenuItemResponse {
 }
 
 @ObjectType()
+export class RestoreMenuItemResponse {
+    @Field(() => MenuItem)
+    menuItem: MenuItem;
+}
+
+@ObjectType()
 export class LoadMenuItemByIdResponse {
     @Field(() => MenuItem, { nullable: true })
     menuItem: MenuItem;
@@ -91,6 +97,8 @@ export class CreateMenuItemDto {
     photo?: string;
 
     @Field(() => Float)
+    @IsNumber()
+    @IsNotEmpty()
     price: number;
 
     @Field()
@@ -195,4 +203,12 @@ export class LoadMenuItemByCategoryDto {
     @IsString()
     @IsNotEmpty()
     categoryId: string;
+}
+
+@InputType()
+export class RestoreMenuItemDto {
+    @Field()
+    @IsString()
+    @IsNotEmpty()
+    _id: string;
 }
