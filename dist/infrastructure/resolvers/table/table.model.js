@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoadTableByZoneDto = exports.RestoreTableDto = exports.DeleteTableDto = exports.LoadTableByIdDto = exports.LoadTableDto = exports.UpdateTableDto = exports.CreateTableDto = exports.RestoreTableResponse = exports.DeleteTableResponse = exports.UpdateTableResponse = exports.CreateTableResponse = exports.LoadTableByIdResponse = exports.LoadTableResponse = exports.Table = exports.TableStatus = exports.ActiveStatus = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const class_validator_1 = require("class-validator");
 const enum_1 = require("../../../domain/enums/enum");
 Object.defineProperty(exports, "ActiveStatus", { enumerable: true, get: function () { return enum_1.ActiveStatus; } });
 Object.defineProperty(exports, "TableStatus", { enumerable: true, get: function () { return enum_1.TableStatus; } });
@@ -129,22 +130,30 @@ let CreateTableDto = class CreateTableDto {
 exports.CreateTableDto = CreateTableDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateTableDto.prototype, "number", void 0);
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateTableDto.prototype, "zoneId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], CreateTableDto.prototype, "capacity", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateTableDto.prototype, "status", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateTableDto.prototype, "isActive", void 0);
 exports.CreateTableDto = CreateTableDto = __decorate([
@@ -155,26 +164,36 @@ let UpdateTableDto = class UpdateTableDto {
 exports.UpdateTableDto = UpdateTableDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateTableDto.prototype, "_id", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateTableDto.prototype, "number", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateTableDto.prototype, "zoneId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateTableDto.prototype, "capacity", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateTableDto.prototype, "status", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateTableDto.prototype, "isActive", void 0);
 exports.UpdateTableDto = UpdateTableDto = __decorate([
@@ -185,30 +204,43 @@ let LoadTableDto = class LoadTableDto {
 exports.LoadTableDto = LoadTableDto;
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], LoadTableDto.prototype, "page", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Int, { nullable: true }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], LoadTableDto.prototype, "limit", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LoadTableDto.prototype, "zoneId", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LoadTableDto.prototype, "isActive", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LoadTableDto.prototype, "keyword", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LoadTableDto.prototype, "sortField", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], LoadTableDto.prototype, "sortDirection", void 0);
 exports.LoadTableDto = LoadTableDto = __decorate([
@@ -219,6 +251,8 @@ let LoadTableByIdDto = class LoadTableByIdDto {
 exports.LoadTableByIdDto = LoadTableByIdDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], LoadTableByIdDto.prototype, "_id", void 0);
 exports.LoadTableByIdDto = LoadTableByIdDto = __decorate([
@@ -229,6 +263,8 @@ let DeleteTableDto = class DeleteTableDto {
 exports.DeleteTableDto = DeleteTableDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], DeleteTableDto.prototype, "_id", void 0);
 exports.DeleteTableDto = DeleteTableDto = __decorate([
@@ -239,6 +275,8 @@ let RestoreTableDto = class RestoreTableDto {
 exports.RestoreTableDto = RestoreTableDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RestoreTableDto.prototype, "_id", void 0);
 exports.RestoreTableDto = RestoreTableDto = __decorate([
@@ -249,6 +287,8 @@ let LoadTableByZoneDto = class LoadTableByZoneDto {
 exports.LoadTableByZoneDto = LoadTableByZoneDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], LoadTableByZoneDto.prototype, "zoneId", void 0);
 exports.LoadTableByZoneDto = LoadTableByZoneDto = __decorate([

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoadMenuOptionByMenuItemDto = exports.DeleteMenuOptionDto = exports.UpdateMenuOptionDto = exports.CreateMenuOptionDto = exports.DeleteMenuOptionResponse = exports.UpdateMenuOptionResponse = exports.CreateMenuOptionResponse = exports.LoadMenuOptionResponse = exports.MenuOption = void 0;
 const graphql_1 = require("@nestjs/graphql");
+const class_validator_1 = require("class-validator");
 const enum_1 = require("../../../domain/enums/enum");
 let MenuOption = class MenuOption {
 };
@@ -91,18 +92,25 @@ let CreateMenuOptionDto = class CreateMenuOptionDto {
 exports.CreateMenuOptionDto = CreateMenuOptionDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMenuOptionDto.prototype, "menuItemId", void 0);
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMenuOptionDto.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Float, { nullable: true }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], CreateMenuOptionDto.prototype, "extraPrice", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateMenuOptionDto.prototype, "isActive", void 0);
 exports.CreateMenuOptionDto = CreateMenuOptionDto = __decorate([
@@ -113,18 +121,25 @@ let UpdateMenuOptionDto = class UpdateMenuOptionDto {
 exports.UpdateMenuOptionDto = UpdateMenuOptionDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateMenuOptionDto.prototype, "_id", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateMenuOptionDto.prototype, "name", void 0);
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.Float, { nullable: true }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateMenuOptionDto.prototype, "extraPrice", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateMenuOptionDto.prototype, "isActive", void 0);
 exports.UpdateMenuOptionDto = UpdateMenuOptionDto = __decorate([
@@ -135,6 +150,8 @@ let DeleteMenuOptionDto = class DeleteMenuOptionDto {
 exports.DeleteMenuOptionDto = DeleteMenuOptionDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], DeleteMenuOptionDto.prototype, "_id", void 0);
 exports.DeleteMenuOptionDto = DeleteMenuOptionDto = __decorate([
@@ -145,6 +162,8 @@ let LoadMenuOptionByMenuItemDto = class LoadMenuOptionByMenuItemDto {
 exports.LoadMenuOptionByMenuItemDto = LoadMenuOptionByMenuItemDto;
 __decorate([
     (0, graphql_1.Field)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], LoadMenuOptionByMenuItemDto.prototype, "menuItemId", void 0);
 exports.LoadMenuOptionByMenuItemDto = LoadMenuOptionByMenuItemDto = __decorate([

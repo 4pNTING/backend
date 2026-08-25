@@ -4,6 +4,8 @@
 
 type Category {
   _id: String
+  uniqueId: Int
+  uid: String
   name: String!
   description: String
   photo: String
@@ -12,12 +14,8 @@ type Category {
   isActive: String
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type LoadCategoryResponse {
+  count: Int
   category: [Category!]!
 }
 
@@ -43,6 +41,8 @@ type RestoreCategoryResponse {
 
 type Zone {
   _id: String
+  uniqueId: Int
+  uid: String
   name: String!
   isActive: String
   createdAt: DateTime
@@ -50,6 +50,7 @@ type Zone {
 }
 
 type LoadZoneResponse {
+  count: Int
   zone: [Zone!]!
 }
 
@@ -84,6 +85,8 @@ type AuthLoginResponse {
 
 type Currency {
   _id: String
+  uniqueId: Int
+  uid: String
   code: String!
   name: String!
   isActive: String
@@ -92,6 +95,7 @@ type Currency {
 }
 
 type LoadCurrencyResponse {
+  count: Int
   currency: [Currency!]!
 }
 
@@ -113,6 +117,8 @@ type DeleteCurrencyResponse {
 
 type Table {
   _id: String
+  uniqueId: Int
+  uid: String
   number: String!
   zoneId: String!
   capacity: Int!
@@ -123,6 +129,7 @@ type Table {
 }
 
 type LoadTableResponse {
+  count: Int
   table: [Table!]!
 }
 
@@ -148,6 +155,8 @@ type RestoreTableResponse {
 
 type MenuItem {
   _id: String
+  uniqueId: Int
+  uid: String
   name: String!
   description: String
   photo: String
@@ -159,7 +168,12 @@ type MenuItem {
 }
 
 type LoadMenuItemResponse {
+  count: Int
   menuItem: [MenuItem!]!
+}
+
+type RestoreMenuItemResponse {
+  menuItem: MenuItem!
 }
 
 type LoadMenuItemByIdResponse {
@@ -274,6 +288,121 @@ type LoadPaymentResponse {
   payment: [Payment!]!
 }
 
+type CustomerContactType {
+  _id: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  province: String
+  district: String
+  village: String
+}
+
+type Customer {
+  _id: String
+  uniqueId: Int
+  uid: String
+  buId: String
+  isActive: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  createdBy: String
+  updatedBy: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  gender: String
+  nationality: String
+  province: String
+  district: String
+  village: String
+  fileUrl: String
+  contact: CustomerContactType
+}
+
+type LoadCustomerResponse {
+  count: Int
+  customer: [Customer!]!
+}
+
+type LoadCustomerByIdResponse {
+  customer: Customer
+}
+
+type CreateCustomerResponse {
+  customer: Customer
+}
+
+type UpdateCustomerResponse {
+  customer: Customer
+}
+
+type DeleteCustomerResponse {
+  customer: Customer
+}
+
+type RestoreCustomerResponse {
+  customer: Customer
+}
+
+type Attachment {
+  _id: String
+  uniqueId: Int
+  uid: String
+  ownerId: String
+  ownerType: String
+  originalName: String
+  fileName: String
+  fileUrl: String
+  filePath: String
+  fileSize: Float
+  mimeType: String
+  uploadType: String
+  status: AttachmentStatus
+  errorMessage: String
+  isActive: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  createdBy: String
+  updatedBy: String
+}
+
+"""Status of file attachment processing"""
+enum AttachmentStatus {
+  pending
+  processing
+  completed
+  failed
+}
+
+type LoadAttachmentResponse {
+  count: Int
+  attachment: [Attachment!]!
+}
+
+type LoadAttachmentByIdResponse {
+  attachment: Attachment
+}
+
+type CreateAttachmentResponse {
+  attachment: Attachment
+}
+
+type UpdateAttachmentResponse {
+  attachment: Attachment
+}
+
+type DeleteAttachmentResponse {
+  attachment: Attachment
+}
+
+type RestoreAttachmentResponse {
+  attachment: Attachment
+}
+
+"""DateTime scalar — returns ISO 8601 UTC string"""
+scalar DateTime
+
 type Query {
   loadCategory(input: LoadCategoryDto): LoadCategoryResponse!
   loadCategoryById(input: LoadCategoryByIdDto!): LoadCategoryByIdResponse
@@ -290,6 +419,10 @@ type Query {
   loadOrderById(input: LoadOrderByIdDto!): LoadOrderByIdResponse
   loadOrderByTable(input: LoadOrderByTableDto!): LoadOrderResponse!
   loadPaymentByOrder(input: LoadPaymentByOrderDto!): LoadPaymentResponse!
+  loadCustomer(input: LoadCustomerDto): LoadCustomerResponse!
+  loadCustomerById(input: LoadCustomerByIdDto!): LoadCustomerByIdResponse
+  loadAttachment(input: LoadAttachmentDto): LoadAttachmentResponse!
+  loadAttachmentById(input: LoadAttachmentByIdDto!): LoadAttachmentByIdResponse
 }
 
 input LoadCategoryDto {
@@ -356,7 +489,7 @@ input LoadMenuItemDto {
   page: Int
   limit: Int
   categoryId: String
-  isActive: String
+  isActive: ActiveStatus
   keyword: String
   sortField: String
   sortDirection: String
@@ -389,6 +522,34 @@ input LoadPaymentByOrderDto {
   orderId: String!
 }
 
+input LoadCustomerDto {
+  page: Int
+  limit: Int
+  isActive: ActiveStatus
+  keyword: String
+  sortField: String
+  sortDirection: String
+}
+
+input LoadCustomerByIdDto {
+  _id: String!
+}
+
+input LoadAttachmentDto {
+  page: Int
+  limit: Int
+  isActive: ActiveStatus
+  keyword: String
+  sortField: String
+  sortDirection: String
+  ownerId: String
+  ownerType: String
+}
+
+input LoadAttachmentByIdDto {
+  _id: String!
+}
+
 type Mutation {
   createCategory(input: CreateCategoryDto!): CreateCategoryResponse!
   updateCategory(input: UpdateCategoryDto!): UpdateCategoryResponse!
@@ -409,6 +570,7 @@ type Mutation {
   createMenuItem(input: CreateMenuItemDto!): CreateMenuItemResponse!
   updateMenuItem(input: UpdateMenuItemDto!): UpdateMenuItemResponse!
   deleteMenuItem(input: DeleteMenuItemDto!): DeleteMenuItemResponse!
+  restoreMenuItem(input: RestoreMenuItemDto!): RestoreMenuItemResponse!
   createMenuOption(input: CreateMenuOptionDto!): CreateMenuOptionResponse!
   updateMenuOption(input: UpdateMenuOptionDto!): UpdateMenuOptionResponse!
   deleteMenuOption(input: DeleteMenuOptionDto!): DeleteMenuOptionResponse!
@@ -418,6 +580,14 @@ type Mutation {
   updateOrderStatus(input: UpdateOrderStatusDto!): UpdateOrderResponse!
   cancelOrder(input: CancelOrderDto!): CancelOrderResponse!
   processPayment(input: ProcessPaymentDto!): PaymentResponse!
+  createCustomer(input: CreateCustomerDto!): CreateCustomerResponse!
+  updateCustomer(input: UpdateCustomerDto!): UpdateCustomerResponse!
+  deleteCustomer(input: DeleteCustomerDto!): DeleteCustomerResponse!
+  restoreCustomer(input: RestoreCustomerDto!): RestoreCustomerResponse!
+  createAttachment(input: CreateAttachmentDto!): CreateAttachmentResponse!
+  updateAttachment(input: UpdateAttachmentDto!): UpdateAttachmentResponse!
+  deleteAttachment(input: DeleteAttachmentDto!): DeleteAttachmentResponse!
+  restoreAttachment(input: RestoreAttachmentDto!): RestoreAttachmentResponse!
 }
 
 input CreateCategoryDto {
@@ -533,6 +703,10 @@ input DeleteMenuItemDto {
   _id: String!
 }
 
+input RestoreMenuItemDto {
+  _id: String!
+}
+
 input CreateMenuOptionDto {
   menuItemId: String!
   name: String!
@@ -587,4 +761,93 @@ input ProcessPaymentDto {
   currencyId: String!
   method: String!
   amount: Float!
+}
+
+input CreateCustomerDto {
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  gender: String
+  nationality: String
+  province: String
+  district: String
+  village: String
+  fileUrl: String
+  isActive: String
+  contact: CustomerContactInput
+}
+
+input CustomerContactInput {
+  _id: String
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  province: String
+  district: String
+  village: String
+}
+
+input UpdateCustomerDto {
+  _id: String!
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  gender: String
+  nationality: String
+  province: String
+  district: String
+  village: String
+  fileUrl: String
+  isActive: String
+  contact: CustomerContactInput
+  deleteContact: Boolean
+}
+
+input DeleteCustomerDto {
+  _id: String!
+}
+
+input RestoreCustomerDto {
+  _id: String!
+}
+
+input CreateAttachmentDto {
+  uid: String
+  ownerId: String
+  ownerType: String
+  originalName: String
+  fileName: String
+  fileUrl: String
+  filePath: String
+  fileSize: Float
+  mimeType: String
+  uploadType: String
+  status: AttachmentStatus
+  errorMessage: String
+  isActive: String
+}
+
+input UpdateAttachmentDto {
+  _id: String!
+  uid: String
+  ownerId: String
+  ownerType: String
+  originalName: String
+  fileName: String
+  fileUrl: String
+  filePath: String
+  fileSize: Float
+  mimeType: String
+  uploadType: String
+  status: AttachmentStatus
+  errorMessage: String
+  isActive: String
+}
+
+input DeleteAttachmentDto {
+  _id: String!
+}
+
+input RestoreAttachmentDto {
+  _id: String!
 }

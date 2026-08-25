@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  DeleteDateColumn,
-} from 'typeorm';
+import {Entity,Column,PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn,DeleteDateColumn} from 'typeorm';
 import { ActiveStatus, AttachmentStatus } from '../../domain/enums/enum';
 import { AttachmentModel } from '../../domain/models/attachment.model';
 

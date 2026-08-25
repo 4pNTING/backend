@@ -1,4 +1,5 @@
 import { ObjectType, Field, InputType, Int } from '@nestjs/graphql';
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsEnum } from 'class-validator';
 import { ActiveStatus, TableStatus } from '../../../domain/enums/enum';
 
 export { ActiveStatus, TableStatus };
@@ -80,86 +81,125 @@ export class RestoreTableResponse {
 @InputType()
 export class CreateTableDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     number: string;
 
     @Field()
+    @IsString()
+    @IsNotEmpty()
     zoneId: string;
 
     @Field(() => Int, { nullable: true })
+    @IsNumber()
+    @IsOptional()
     capacity?: number;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     status?: TableStatus;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     isActive?: ActiveStatus;
 }
 
 @InputType()
 export class UpdateTableDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     _id: string;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     number?: string;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     zoneId?: string;
 
     @Field(() => Int, { nullable: true })
+    @IsNumber()
+    @IsOptional()
     capacity?: number;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     status?: TableStatus;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     isActive?: ActiveStatus;
 }
 
 @InputType()
 export class LoadTableDto {
     @Field(() => Int, { nullable: true })
+    @IsNumber()
+    @IsOptional()
     page?: number;
 
     @Field(() => Int, { nullable: true })
+    @IsNumber()
+    @IsOptional()
     limit?: number;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     zoneId?: string;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     isActive?: ActiveStatus;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     keyword?: string;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     sortField?: string;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     sortDirection?: string;
 }
 
 @InputType()
 export class LoadTableByIdDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     _id: string;
 }
 
 @InputType()
 export class DeleteTableDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     _id: string;
 }
 
 @InputType()
 export class RestoreTableDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     _id: string;
 }
 
 @InputType()
 export class LoadTableByZoneDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     zoneId: string;
 }

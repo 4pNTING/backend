@@ -1,4 +1,5 @@
 import { ObjectType, Field, InputType, Float } from '@nestjs/graphql';
+import { IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
 import { ActiveStatus } from '../../../domain/enums/enum';
 
 @ObjectType()
@@ -52,41 +53,59 @@ export class DeleteMenuOptionResponse {
 @InputType()
 export class CreateMenuOptionDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     menuItemId: string;
 
     @Field()
+    @IsString()
+    @IsNotEmpty()
     name: string;
 
     @Field(() => Float, { nullable: true })
+    @IsNumber()
+    @IsOptional()
     extraPrice?: number;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     isActive?: ActiveStatus;
 }
 
 @InputType()
 export class UpdateMenuOptionDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     _id: string;
 
     @Field({ nullable: true })
+    @IsString()
+    @IsOptional()
     name?: string;
 
     @Field(() => Float, { nullable: true })
+    @IsNumber()
+    @IsOptional()
     extraPrice?: number;
 
     @Field(() => String, { nullable: true })
+    @IsOptional()
     isActive?: ActiveStatus;
 }
 
 @InputType()
 export class DeleteMenuOptionDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     _id: string;
 }
 
 @InputType()
 export class LoadMenuOptionByMenuItemDto {
     @Field()
+    @IsString()
+    @IsNotEmpty()
     menuItemId: string;
 }
