@@ -8,7 +8,7 @@
  */
 
 /** Generate a deterministic cache key fragment from QueryProps for list queries */
-function queryToCacheKey(query: { paginate?: { page?: number; limit?: number }; search?: { q?: string }; isActive?: boolean | string; sortField?: string; sortDirection?: string; categoryId?: string }): string {
+function queryToCacheKey(query: { paginate?: { page?: number; limit?: number }; search?: { q?: string }; isActive?: boolean | string; sortField?: string; sortDirection?: string; categoryId?: string; zoneId?: string }): string {
   const parts: string[] = [];
   if (query.paginate?.page || query.paginate?.limit) {
     parts.push(`p${query.paginate.page ?? 1}_l${query.paginate.limit ?? 10}`);
@@ -21,6 +21,9 @@ function queryToCacheKey(query: { paginate?: { page?: number; limit?: number }; 
   }
   if (query.categoryId) {
     parts.push(`category:${query.categoryId}`);
+  }
+  if (query.zoneId) {
+    parts.push(`zone:${query.zoneId}`);
   }
   if (query.sortField) {
     parts.push(`sf:${query.sortField}_sd:${query.sortDirection ?? 'DESC'}`);

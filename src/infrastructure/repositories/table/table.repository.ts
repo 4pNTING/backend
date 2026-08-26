@@ -41,7 +41,7 @@ export class DatabaseTableRepository implements ITableRepository {
             const result = await new CreateTableAction(session).execute(params);
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.TABLE_LIST);
+            await this.redisService.delByPattern(CacheKeys.TABLE_LIST_PATTERN);
             if (params.zoneId) {
                 await this.redisService.del(CacheKeys.TABLE_BY_ZONE(params.zoneId));
             }
@@ -63,7 +63,7 @@ export class DatabaseTableRepository implements ITableRepository {
             await new UpdateTableAction(session).execute(params);
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.TABLE_LIST);
+            await this.redisService.delByPattern(CacheKeys.TABLE_LIST_PATTERN);
             await this.redisService.del(CacheKeys.TABLE_BY_ID(params._id));
         } catch (error) {
             await session.rollbackTransaction();
@@ -84,7 +84,7 @@ export class DatabaseTableRepository implements ITableRepository {
             });
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.TABLE_LIST);
+            await this.redisService.delByPattern(CacheKeys.TABLE_LIST_PATTERN);
             await this.redisService.del(CacheKeys.TABLE_BY_ID(params._id));
         } catch (error) {
             await session.rollbackTransaction();
@@ -102,7 +102,7 @@ export class DatabaseTableRepository implements ITableRepository {
             await new RestoreTableAction(session).execute(_id);
             await session.commitTransaction();
 
-            await this.redisService.del(CacheKeys.TABLE_LIST);
+            await this.redisService.delByPattern(CacheKeys.TABLE_LIST_PATTERN);
             await this.redisService.del(CacheKeys.TABLE_BY_ID(_id));
         } catch (error) {
             await session.rollbackTransaction();
@@ -113,7 +113,8 @@ export class DatabaseTableRepository implements ITableRepository {
     }
 
     async findAll(query: QueryProps): Promise<LoadAllTableResponse> {
-        const cached = await this.redisService.get<LoadAllTableResponse>(CacheKeys.TABLE_LIST);
+        const cacheKey = CacheKeys.TABLE_LIST_QUERY(query);
+        const cached = await this.redisService.get<LoadAllTableResponse>(cacheKey);
         if (cached) return cached;
 
         const session = this.dataSource.createQueryRunner();
@@ -122,7 +123,7 @@ export class DatabaseTableRepository implements ITableRepository {
         try {
             const result = await new LoadAllTableAction(session).execute(query);
             await session.commitTransaction();
-            await this.redisService.set(CacheKeys.TABLE_LIST, result);
+            await this.redisService.set(cacheKey, result);
             return result;
         } catch (error) {
             await session.rollbackTransaction();
